@@ -1,8 +1,4 @@
-interface ResolverMap {
-  [key: string]: {
-    [key: string]: (parent: any, args: any, context: {}, info: any) => any;
-  };
-}
+import { ResolverMap } from "./types/graphql-utils";
 
 export const resolvers: ResolverMap = {
   Query: {
