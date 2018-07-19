@@ -7,7 +7,9 @@
     "packages/*"
   ],
   "scripts": {
-    "web": "cd packages && cd web && npm run start"
+    "web": "cd packages/web && npm run start",
+    "api": "cd packages/api",
+    "dev": "concurrently \"npm run web\" \"npm run api\""
   },
   "devDependencies": {
     "concurrently": "^3.6.0"

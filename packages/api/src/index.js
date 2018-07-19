@@ -1,47 +1,17 @@
-const typeorm = require("typeorm"); // import * as typeorm from "typeorm";
-const Post = require("./model/Post").Post; // import {Post} from "./model/Post";
-const Category = require("./model/Category").Category; // import {Category} from "./model/Category";
+import "reflect-metadata";
+import { GraphQLServer } from "graphql-yoga";
 
-typeorm
-  .createConnection({
-    type: "postgres",
-    host: "localhost",
-    port: 5432,
-    username: "postgres",
-    password: "postgres",
-    database: "seed",
-    synchronize: true,
-    logging: false,
-    entities: [
-      require("./entity/PostSchema"),
-      require("./entity/CategorySchema")
-    ]
-  })
-  .then(function(connection) {
-    const category1 = new Category(0, "TypeScript");
-    const category2 = new Category(0, "Programming");
+const typeDefs = `
+  type Query {
+    hello(name: String): String!
+  }
+`;
 
-    return connection.manager.save([category1, category2]).then(() => {
-      let post = new Post();
-      post.title = "Control flow based type analysis";
-      post.text =
-        "TypeScript 2.0 implements a control flow-based type analysis for local variables and parameters.";
-      post.categories = [category1, category2];
+const resolvers = {
+  Query: {
+    hello: () => `Bye ${name || "World"}`
+  }
+};
 
-      let postRepository = connection.getRepository(Post);
-      postRepository
-        .save(post)
-        .then(function(savedPost) {
-          console.log("Post has been saved: ", savedPost);
-          console.log("Now lets load all posts: ");
-
-          return postRepository.find();
-        })
-        .then(function(allPosts) {
-          console.log("All posts: ", allPosts);
-        });
-    });
-  })
-  .catch(function(error) {
-    console.log("Error: ", error);
-  });
+const server = new GraphQLServer({ typeDefs, resolvers });
+server.start(() => console.log("Server is running on localhost:4000"));

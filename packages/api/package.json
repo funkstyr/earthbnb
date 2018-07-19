@@ -3,9 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "private": true,
+  "scripts": {
+    "start": "nodemon --exec node src/index.js"
+  },
   "dependencies": {
+    "graphql-yoga": "^1.14.12",
     "pg": "^7.4.3",
     "reflect-metadata": "^0.1.12",
     "typeorm": "^0.2.7"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
   }
 }
