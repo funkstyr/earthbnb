@@ -1,4 +1,5 @@
 import "reflect-metadata";
+
 import { GraphQLServer } from "graphql-yoga";
 
 const typeDefs = `
@@ -9,7 +10,7 @@ const typeDefs = `
 
 const resolvers = {
   Query: {
-    hello: () => `Bye ${name || "World"}`
+    hello: (_: any, { name }: any) => `Bye ${name || "World"}`
   }
 };
 
