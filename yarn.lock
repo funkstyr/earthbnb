@@ -9,6 +9,34 @@
     core-js "^2.5.7"
     regenerator-runtime "^0.12.0"
 
+"@gql2ts/from-query@^1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@gql2ts/from-query/-/from-query-1.8.0.tgz#a5dd66aaba57a4e51a60205352d0562214917313"
+  dependencies:
+    "@gql2ts/language-typescript" "^1.8.0"
+    "@gql2ts/util" "^1.8.0"
+
+"@gql2ts/from-schema@^1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@gql2ts/from-schema/-/from-schema-1.8.0.tgz#12f2b860c0a7948d048e1155845fdba5a2be4a1d"
+  dependencies:
+    "@gql2ts/language-typescript" "^1.8.0"
+    "@gql2ts/util" "^1.8.0"
+    dedent "^0.7.0"
+    graphql ">= 0.10 <1.0.0"
+
+"@gql2ts/language-typescript@^1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@gql2ts/language-typescript/-/language-typescript-1.8.0.tgz#af61acd14f789c3175198426bef7fbf0a2954a4a"
+  dependencies:
+    "@gql2ts/util" "^1.8.0"
+    humps "^2.0.0"
+    typescript "^2.2.2"
+
+"@gql2ts/util@^1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@gql2ts/util/-/util-1.8.0.tgz#23612425b43ba1a6534e7783137276f4f567a417"
+
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@samverschueren/stream-to-observable/-/stream-to-observable-0.3.0.tgz#ecdf48d532c58ea477acfcab80348424f8d0662f"
@@ -88,6 +116,12 @@
   dependencies:
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
+
+"@types/uuid@^3.4.3":
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-3.4.3.tgz#121ace265f5569ce40f4f6d0ff78a338c732a754"
+  dependencies:
+    "@types/node" "*"
 
 "@types/zen-observable@^0.5.3":
   version "0.5.4"
@@ -3535,6 +3569,16 @@ got@^6.7.1:
     unzip-response "^2.0.1"
     url-parse-lax "^1.0.0"
 
+gql2ts@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/gql2ts/-/gql2ts-1.8.0.tgz#45af71a4aa5db0caa20fcb3b10b3c46bdacf321e"
+  dependencies:
+    "@gql2ts/from-query" "^1.8.0"
+    "@gql2ts/from-schema" "^1.8.0"
+    "@gql2ts/util" "^1.8.0"
+    commander "^2.9.0"
+    graphql ">= 0.10 <1.0.0"
+
 graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.1.9:
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
@@ -3654,7 +3698,7 @@ graphql-yoga@^1.9.2:
     graphql-tools "^2.23.1"
     subscriptions-transport-ws "^0.9.8"
 
-"graphql@^0.11.0 || ^0.12.0 || ^0.13.0":
+"graphql@>= 0.10 <1.0.0", "graphql@^0.11.0 || ^0.12.0 || ^0.13.0":
   version "0.13.2"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.13.2.tgz#4c740ae3c222823e7004096f832e7b93b2108270"
   dependencies:
@@ -3928,6 +3972,10 @@ http-signature@~1.2.0:
 https-browserify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
+
+humps@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/humps/-/humps-2.0.1.tgz#dd02ea6081bd0568dc5d073184463957ba9ef9aa"
 
 husky@^0.14.3:
   version "0.14.3"
@@ -8422,6 +8470,10 @@ typescript@2.8.3:
   version "2.8.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.8.3.tgz#5d817f9b6f31bb871835f4edf0089f21abe6c170"
 
+typescript@^2.2.2:
+  version "2.9.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.9.2.tgz#1cbf61d05d6b96269244eb6a3bce4bd914e0f00c"
+
 ua-parser-js@^0.7.18:
   version "0.7.18"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.18.tgz#a7bfd92f56edfb117083b69e31d2aa8882d4b1ed"
@@ -8614,7 +8666,7 @@ uuid@^2.0.2:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-2.0.3.tgz#67e2e863797215530dff318e5bf9dcebfd47b21a"
 
-uuid@^3.1.0:
+uuid@^3.1.0, uuid@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
 
