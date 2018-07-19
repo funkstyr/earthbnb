@@ -13,3 +13,11 @@
 ### NPM
 
 ### Yarn
+
+### Windows
+
+`npm install -g win-node-env`
+
+### Docker
+
+``
