@@ -12,6 +12,11 @@
 
 ### NPM
 
+`--detectOpenHandles`: just to get rid of Jest error
+
+- Reaserched and found it could be a create-react-app issue with react-scripts and Jest
+- Need to look into running CRA and /api Jest together
+
 ### Yarn
 
 ### Windows
