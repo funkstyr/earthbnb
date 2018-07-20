@@ -9,6 +9,7 @@
   "scripts": {
     "web": "cd packages/web && npm run start",
     "api": "cd packages/api",
+    "api:test": "cd packages/api && yarn test",
     "dev": "concurrently \"npm run web\" \"npm run api\""
   },
   "devDependencies": {
