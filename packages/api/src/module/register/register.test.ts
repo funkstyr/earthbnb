@@ -1,7 +1,7 @@
 import { request } from "graphql-request";
 
-import { User } from "../entity/User";
-import { startServer } from "../utils/startServer";
+import { User } from "../../entity/User";
+import { startServer } from "../../util/startServer";
 
 let host = "http://localhost:4000";
 const email = "tester@test.com";
