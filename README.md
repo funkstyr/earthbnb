@@ -15,7 +15,7 @@
 `--detectOpenHandles`: just to get rid of Jest error
 
 - Reaserched and found it could be a create-react-app issue with react-scripts and Jest
-- Need to look into running CRA and /api Jest together
+- Need to look into running `/web` CRA and `/api` Jest in yarn workspaces
 
 ### Yarn
 
@@ -25,4 +25,8 @@
 
 ### Docker
 
-``
+For changing port docker image port:localhost port
+
+- For local dev
+  - postgres: `docker run -d -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres --name postgres --restart=always -p 5432:5432 postgres`
+  - redis: `docker run -d --name redis --restart=always -p 6379: 6379 redis`
