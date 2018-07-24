@@ -36,10 +36,4 @@ describe("Create Confirmation Link", async () => {
     const value = await redis.get(key);
     expect(value).toBeNull();
   });
-
-  test("use invalid id", async () => {
-    const response = await fetch(`${host}/confirm/123`);
-    const text = await response.text();
-    expect(text).toEqual("invalid");
-  });
 });

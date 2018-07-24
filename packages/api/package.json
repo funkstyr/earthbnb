@@ -4,13 +4,13 @@
   "description": "",
   "devDependencies": {
     "@types/bcryptjs": "^2.4.1",
+    "@types/express": "^4.16.0",
     "@types/ioredis": "^3.2.13",
     "@types/jest": "^23.3.0",
     "@types/node": "^9.6.6",
     "@types/node-fetch": "^2.1.2",
     "@types/uuid": "^3.4.3",
     "@types/yup": "^0.24.7",
-    "gql2ts": "^1.8.0",
     "jest": "^23.4.1",
     "node-fetch": "^2.2.0",
     "nodemon": "^1.17.3",
@@ -21,6 +21,7 @@
     "typescript": "2.8.3"
   },
   "dependencies": {
+    "@gql2ts/from-schema": "^1.8.1",
     "bcryptjs": "^2.4.3",
     "graphql": "^0.13.2",
     "graphql-import": "^0.6.0",
@@ -38,10 +39,10 @@
     "start": "NODE_ENV=development nodemon --exec ts-node src/index.ts",
     "test-server": "NODE_ENV=test ts-node src/index.ts",
     "test": "NODE_ENV=test jest --detectOpenHandles --forceExit",
-    "gen-schema-types": "gql2ts src/schema.graphql -o src/types/schema.d.ts"
+    "gen-schema-types": "ts-node src/utils/createTypes.ts"
   },
   "jest": {
-    "globalSetup": "./src/util/test/callTestSetup.js",
+    "globalSetup": "./src/utils/test/callTestSetup.js",
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },

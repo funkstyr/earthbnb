@@ -23,33 +23,26 @@
     core-js "^2.5.7"
     regenerator-runtime "^0.12.0"
 
-"@gql2ts/from-query@^1.8.0":
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/@gql2ts/from-query/-/from-query-1.8.0.tgz#a5dd66aaba57a4e51a60205352d0562214917313"
+"@gql2ts/from-schema@^1.8.1":
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/@gql2ts/from-schema/-/from-schema-1.8.1.tgz#642637b0f26bdbb41ea42f16f6a9d873647ace49"
   dependencies:
-    "@gql2ts/language-typescript" "^1.8.0"
-    "@gql2ts/util" "^1.8.0"
-
-"@gql2ts/from-schema@^1.8.0":
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/@gql2ts/from-schema/-/from-schema-1.8.0.tgz#12f2b860c0a7948d048e1155845fdba5a2be4a1d"
-  dependencies:
-    "@gql2ts/language-typescript" "^1.8.0"
-    "@gql2ts/util" "^1.8.0"
+    "@gql2ts/language-typescript" "^1.8.1"
+    "@gql2ts/util" "^1.8.1"
     dedent "^0.7.0"
     graphql ">= 0.10 <1.0.0"
 
-"@gql2ts/language-typescript@^1.8.0":
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/@gql2ts/language-typescript/-/language-typescript-1.8.0.tgz#af61acd14f789c3175198426bef7fbf0a2954a4a"
+"@gql2ts/language-typescript@^1.8.1":
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/@gql2ts/language-typescript/-/language-typescript-1.8.1.tgz#d194a9b6f2023583e6ba738a45ac47529bb2595f"
   dependencies:
-    "@gql2ts/util" "^1.8.0"
+    "@gql2ts/util" "^1.8.1"
     humps "^2.0.0"
     typescript "^2.2.2"
 
-"@gql2ts/util@^1.8.0":
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/@gql2ts/util/-/util-1.8.0.tgz#23612425b43ba1a6534e7783137276f4f567a417"
+"@gql2ts/util@^1.8.1":
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/@gql2ts/util/-/util-1.8.1.tgz#a1260a741084a2232b45daee2b274fb64da332df"
 
 "@types/bcryptjs@^2.4.1":
   version "2.4.1"
@@ -90,7 +83,7 @@
     "@types/node" "*"
     "@types/range-parser" "*"
 
-"@types/express@*", "@types/express@^4.11.1":
+"@types/express@*", "@types/express@^4.11.1", "@types/express@^4.16.0":
   version "4.16.0"
   resolved "https://registry.yarnpkg.com/@types/express/-/express-4.16.0.tgz#6d8bc42ccaa6f35cf29a2b7c3333cb47b5a32a19"
   dependencies:
@@ -969,7 +962,7 @@ commander@2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.6.0.tgz#9df7e52fb2a0cb0fb89058ee80c3104225f37e1d"
 
-commander@^2.12.1, commander@^2.5.0, commander@^2.9.0:
+commander@^2.12.1, commander@^2.5.0:
   version "2.16.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.16.0.tgz#f16390593996ceb4f3eeb020b31d78528f7f8a50"
 
@@ -1767,16 +1760,6 @@ got@^6.7.1:
     timed-out "^4.0.0"
     unzip-response "^2.0.1"
     url-parse-lax "^1.0.0"
-
-gql2ts@^1.8.0:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/gql2ts/-/gql2ts-1.8.0.tgz#45af71a4aa5db0caa20fcb3b10b3c46bdacf321e"
-  dependencies:
-    "@gql2ts/from-query" "^1.8.0"
-    "@gql2ts/from-schema" "^1.8.0"
-    "@gql2ts/util" "^1.8.0"
-    commander "^2.9.0"
-    graphql ">= 0.10 <1.0.0"
 
 graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6:
   version "4.1.11"

@@ -7,7 +7,7 @@ import {
   shortEmail,
   shortPassword
 } from "./errorMessages";
-import { createTypeormConnection } from "../../util/createConnection";
+import { createTypeormConnection } from "../../utils/createConnection";
 
 const host = process.env.TEST_HOST as string;
 const email_valid = "tester@test.com";

@@ -1,8 +1,8 @@
 import * as bcrypt from "bcryptjs";
 import * as yup from "yup";
 
-import { ResolverMap } from "../../type/graphql-utils";
-import { formatYupError } from "../../util/formatError";
+import { ResolverMap } from "../../types/graphql-utils";
+import { formatYupError } from "../../utils/formatError";
 import {
   duplicateEmail,
   shortEmail,
@@ -10,7 +10,7 @@ import {
   shortPassword
 } from "./errorMessages";
 import { User } from "../../entity/User";
-import { createConfirmEmailLink } from "../../util/confirmEmail";
+import { createConfirmEmailLink } from "../../utils/confirmEmail";
 
 const schema = yup.object().shape({
   email: yup

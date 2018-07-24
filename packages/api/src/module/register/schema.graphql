@@ -1,4 +1,4 @@
-# import Error from "../../util/shared.graphql"
+# import Error from "../../utils/shared.graphql"
 
 type Query {
   bye: String
