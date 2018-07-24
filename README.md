@@ -14,7 +14,7 @@
 
 `--detectOpenHandles`: just to get rid of Jest error
 
-- Reaserched and found it could be a create-react-app issue with react-scripts and Jest
+- Researched and found it could be a create-react-app issue with react-scripts and Jest
 - Need to look into running `/web` CRA and `/api` Jest in yarn workspaces
 
 ### Yarn

@@ -26,8 +26,7 @@ export const startServer = async () => {
   } as any);
 
   // const options = await getConnectionOptions(process.env.NOVE_ENV);
-
-  // createConnection({ ...options, name: "default" });
+  // await createConnection({ ...options, name: "default" });
   // cannot find default connection
 
   createConnection();
