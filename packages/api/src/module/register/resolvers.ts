@@ -11,6 +11,7 @@ import {
 } from "./errorMessages";
 import { User } from "../../entity/User";
 import { createConfirmEmailLink } from "../../utils/confirmEmail";
+import { sendEmail } from "../../utils/sendEmail";
 
 const schema = yup.object().shape({
   email: yup
@@ -62,10 +63,11 @@ export const resolvers: ResolverMap = {
       await user.save();
 
       // send confirm email
-
       const emailURL = await createConfirmEmailLink(url, user.id, redis);
 
-      console.log(emailURL);
+      if (process.env.NODE_ENV !== "test") {
+        sendEmail(email, emailURL);
+      }
 
       return null;
     }
