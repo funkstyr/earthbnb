@@ -1,26 +1,20 @@
 import { request } from "graphql-request";
 
 import { User } from "../../entity/User";
-import { startServer } from "../../util/startServer";
 import {
   duplicateEmail,
   invalidEmail,
   shortEmail,
   shortPassword
 } from "./errorMessages";
+import { createTypeormConnection } from "../../util/createConnection";
 
-let host = () => "http://localhost:4000";
+const host = process.env.TEST_HOST as string;
 const email_valid = "tester@test.com";
 const email_short = "t";
 const email_invalid = "tester";
 const password_valid = "test";
 const password_short = "p";
-
-beforeAll(async () => {
-  const app = await startServer();
-  const { port }: any = app.address();
-  host = () => `http://127.0.0.1:${port}`;
-});
 
 const mutation = (email: string, password: string) => `
     mutation {
@@ -31,69 +25,78 @@ const mutation = (email: string, password: string) => `
     }
 `;
 
-test("Register user", async () => {
-  const response = await request(host(), mutation(email_valid, password_valid));
-  expect(response).toEqual({ register: null });
+// test error: ConnectionNotFoundError: Connection "default" was not found
+// existing user test passes
 
-  const users = await User.find({ where: email_valid });
-  expect(users).toHaveLength(1);
-
-  const user = users[0];
-  expect(user.email).toEqual(email_valid);
-  expect(user.password).not.toEqual(password_valid);
+beforeAll(async () => {
+  await createTypeormConnection;
 });
 
-test("Register existing user", async () => {
-  const response: any = await request(
-    host(),
-    mutation(email_valid, password_valid)
-  );
-  expect(response.register).toHaveLength(1);
-  expect(response.register[0]).toEqual({
-    path: "email",
-    message: duplicateEmail
+describe("Register User", async () => {
+  test("valid user", async () => {
+    const response = await request(host, mutation(email_valid, password_valid));
+    expect(response).toEqual({ register: null });
+
+    const users = await User.find({ where: email_valid });
+    expect(users).toHaveLength(1);
+
+    const user = users[0];
+    expect(user.email).toEqual(email_valid);
+    expect(user.password).not.toEqual(password_valid);
   });
-});
 
-test("Register short email", async () => {
-  const response: any = await request(
-    host(),
-    mutation(email_short, password_valid)
-  );
-  expect(response.register).toEqual([
-    {
+  test("existing user", async () => {
+    const response: any = await request(
+      host,
+      mutation(email_valid, password_valid)
+    );
+    expect(response.register).toHaveLength(1);
+    expect(response.register[0]).toEqual({
       path: "email",
-      message: shortEmail
-    },
-    {
-      path: "email",
-      message: invalidEmail
-    }
-  ]);
-});
+      message: duplicateEmail
+    });
+  });
 
-test("Register invalid email", async () => {
-  const response: any = await request(
-    host(),
-    mutation(email_invalid, password_valid)
-  );
-  expect(response.register).toEqual([
-    {
-      path: "email",
-      message: invalidEmail
-    }
-  ]);
-});
+  test("short email", async () => {
+    const response: any = await request(
+      host,
+      mutation(email_short, password_valid)
+    );
+    expect(response.register).toEqual([
+      {
+        path: "email",
+        message: shortEmail
+      },
+      {
+        path: "email",
+        message: invalidEmail
+      }
+    ]);
+  });
 
-test("Register short password", async () => {
-  const response: any = await request(
-    host(),
-    mutation(email_valid, password_short)
-  );
-  expect(response.register).toEqual([
-    {
-      path: "password",
-      message: shortPassword
-    }
-  ]);
+  test("invalid email", async () => {
+    const response: any = await request(
+      host,
+      mutation(email_invalid, password_valid)
+    );
+    expect(response.register).toEqual([
+      {
+        path: "email",
+        message: invalidEmail
+      }
+    ]);
+  });
+
+  test("short password", async () => {
+    const response: any = await request(
+      host,
+      mutation(email_valid, password_short)
+    );
+    expect(response.register).toEqual([
+      {
+        path: "password",
+        message: shortPassword
+      }
+    ]);
+  });
 });

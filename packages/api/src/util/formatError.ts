@@ -1,7 +1,7 @@
 import { ValidationError } from "yup";
 
 export const formatYupError = (err: ValidationError) => {
-  console.log(err);
+  // console.log(err);
 
   const errors: Array<{ path: string; message: string }> = [];
 
