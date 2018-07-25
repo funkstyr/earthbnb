@@ -1,4 +1,3 @@
-import { request } from "graphql-request";
 import { Connection } from "typeorm";
 
 import { User } from "../../entity/User";
@@ -9,6 +8,7 @@ import {
   shortPassword
 } from "./errorMessages";
 import { createTypeormConnection } from "../../utils/createConnection";
+import { TestClient } from "../../utils/test/testClient";
 
 const host = process.env.TEST_HOST as string;
 const email_valid = "tester@test.com";
@@ -17,19 +17,8 @@ const email_invalid = "tester";
 const password_valid = "test";
 const password_short = "p";
 
-const mutation = (email: string, password: string) => `
-    mutation {
-        register(email: "${email}", password: "${password}") {
-          path
-          message
-        }
-    }
-`;
-
-// test error: ConnectionNotFoundError: Connection "default" was not found
-// existing user test passes
-
 let connection: Connection;
+const client = new TestClient(host);
 
 beforeAll(async () => {
   connection = await createTypeormConnection();
@@ -40,36 +29,10 @@ afterAll(async () => {
 });
 
 describe("Register User", async () => {
-  test("valid user", async () => {
-    const response = await request(host, mutation(email_valid, password_valid));
-    expect(response).toEqual({ register: null });
-
-    const users = await User.find({ where: email_valid });
-    expect(users).toHaveLength(1);
-
-    const user = users[0];
-    expect(user.email).toEqual(email_valid);
-    expect(user.password).not.toEqual(password_valid);
-  });
-
-  test("existing user", async () => {
-    const response: any = await request(
-      host,
-      mutation(email_valid, password_valid)
-    );
-    expect(response.register).toHaveLength(1);
-    expect(response.register[0]).toEqual({
-      path: "email",
-      message: duplicateEmail
-    });
-  });
-
   test("short email", async () => {
-    const response: any = await request(
-      host,
-      mutation(email_short, password_valid)
-    );
-    expect(response.register).toEqual([
+    const response = await client.register(email_short, password_valid);
+    console.log("response:", response);
+    expect(response.data.register).toEqual([
       {
         path: "email",
         message: shortEmail
@@ -82,11 +45,8 @@ describe("Register User", async () => {
   });
 
   test("invalid email", async () => {
-    const response: any = await request(
-      host,
-      mutation(email_invalid, password_valid)
-    );
-    expect(response.register).toEqual([
+    const response = await client.register(email_invalid, password_valid);
+    expect(response.data.register).toEqual([
       {
         path: "email",
         message: invalidEmail
@@ -95,15 +55,33 @@ describe("Register User", async () => {
   });
 
   test("short password", async () => {
-    const response: any = await request(
-      host,
-      mutation(email_valid, password_short)
-    );
-    expect(response.register).toEqual([
+    const response = await client.register(email_valid, password_short);
+    expect(response.data.register).toEqual([
       {
         path: "password",
         message: shortPassword
       }
     ]);
+  });
+
+  test("valid user", async () => {
+    const response = await client.register(email_valid, password_valid);
+    expect(response.data).toEqual({ register: null });
+
+    const users = await User.find({ where: { email: email_valid } });
+    expect(users).toHaveLength(1);
+
+    const user = users[0];
+    expect(user.email).toEqual(email_valid);
+    expect(user.password).not.toEqual(password_valid);
+  });
+
+  test("existing user", async () => {
+    const response = await client.register(email_valid, password_valid);
+    expect(response.data.register).toHaveLength(1);
+    expect(response.data.register[0]).toEqual({
+      path: "email",
+      message: duplicateEmail
+    });
   });
 });

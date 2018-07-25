@@ -1,31 +1,13 @@
-import axios from "axios";
 import { createTypeormConnection } from "../../utils/createConnection";
 import { User } from "../../entity/User";
 import { Connection } from "typeorm";
+import { TestClient } from "../../utils/test/testClient";
 
 let connection: Connection;
 let userId: string;
 const host = process.env.TEST_HOST as string;
 const email = "logged@test.com";
 const password = "logged";
-
-const loginMutation = `
-    mutation {
-        login(email: ${email}, password: ${password}) {
-            path
-            message
-        }
-    }
-`;
-
-const meQuery = `
-    {
-        me {
-            id
-            email
-        }
-    }
-`;
 
 beforeAll(async () => {
   connection = await createTypeormConnection();
@@ -37,8 +19,6 @@ beforeAll(async () => {
   }).save();
 
   userId = user.id;
-
-  console.log("ME Test UserId:", userId);
 });
 
 afterAll(async () => {
@@ -46,35 +26,22 @@ afterAll(async () => {
 });
 
 describe("Me", async () => {
-  test("not logged in", async () => {
-    const response = await axios.post(host, {
-      query: meQuery
-    });
-    expect(response.data.data.me).toBeNull();
+  test("no cookie available", async () => {
+    const client = new TestClient(host);
+
+    const response = await client.me();
+    expect(response.data.me).toBeNull();
   });
 
-  test("logged in", async () => {
-    const logged = await axios.post(
-      host,
-      {
-        query: loginMutation
-      },
-      { withCredentials: true }
-    );
+  test("cookie set", async () => {
+    const client = new TestClient(host);
 
-    console.log("logged in mutation:", logged);
+    await client.login(email, password);
 
-    //     const response = await axios.post(
-    //       host,
-    //       {
-    //         query: meQuery
-    //       },
-    //       { withCredentials: true }
-    //     );
-
-    //     console.log("me query:", response);
-
-    //     expect(response.data.data.me.email).toEqual(email);
-    //     expect(response.data.data.me.id).toEqual(userId);
+    const response = await client.me();
+    expect(response.data.me).toEqual({
+      id: userId,
+      email
+    });
   });
 });

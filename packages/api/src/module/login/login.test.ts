@@ -1,25 +1,16 @@
-import { request } from "graphql-request";
 import { invalidLogin, confirmEmail } from "./errorMessages";
 import { User } from "../../entity/User";
 import { createTypeormConnection } from "../../utils/createConnection";
 import { Connection } from "typeorm";
+import { TestClient } from "../../utils/test/testClient";
 
 const host = process.env.TEST_HOST as string;
 const email_valid = "tester@test.com";
 const password_valid = "test";
 const password_wrong = "long";
 
-// call: register/login
-const mutation = (call: string, email: string, password: string) => `
-    mutation {
-        ${call}(email: "${email}", password: "${password}") {
-          path
-          message
-        }
-    }
-`;
-
 let connection: Connection;
+const client = new TestClient(host);
 
 beforeAll(async () => {
   connection = await createTypeormConnection();
@@ -31,11 +22,8 @@ afterAll(async () => {
 
 describe("Login User", async () => {
   test("unregistered login", async () => {
-    const response = await request(
-      host,
-      mutation("login", email_valid, password_valid)
-    );
-    expect(response).toEqual({
+    const response = await client.login(email_valid, password_valid);
+    expect(response.data).toEqual({
       login: [
         {
           path: "login",
@@ -46,13 +34,10 @@ describe("Login User", async () => {
   });
 
   test("email not confirmed", async () => {
-    await request(host, mutation("register", email_valid, password_valid));
+    await client.register(email_valid, password_valid);
 
-    const response = await request(
-      host,
-      mutation("login", email_valid, password_valid)
-    );
-    expect(response).toEqual({
+    const response = await client.login(email_valid, password_valid);
+    expect(response.data).toEqual({
       login: [
         {
           path: "login",
@@ -63,28 +48,17 @@ describe("Login User", async () => {
   });
 
   test("email confirmed", async () => {
-    // await request(host, mutation("register", email_valid, password_valid));
-    // await User.update({ email: email_valid }, { confirmed: true });
     await User.update({ email: email_valid }, { confirmed: true });
 
-    const response = await request(
-      host,
-      mutation("login", email_valid, password_valid)
-    );
-    expect(response).toEqual({
+    const response = await client.login(email_valid, password_valid);
+    expect(response.data).toEqual({
       login: null
     });
   });
 
   test("invalid password", async () => {
-    // await request(host, mutation("register", email_valid, password_valid));
-    // await User.update({ email: email_valid }, { confirmed: true });
-
-    const response = await request(
-      host,
-      mutation("login", email_valid, password_wrong)
-    );
-    expect(response).toEqual({
+    const response = await client.login(email_valid, password_wrong);
+    expect(response.data).toEqual({
       login: [
         {
           path: "login",

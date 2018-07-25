@@ -8,8 +8,6 @@ export default async (
   context: any,
   info: any
 ) => {
-  console.log("args given:", args);
-
   if (!context.session || !context.session.userId) {
     // user not logged in
     return null;
@@ -27,6 +25,5 @@ export default async (
 
   //afterware
 
-  console.log("result:", result);
   return result;
 };
