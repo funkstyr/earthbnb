@@ -1,6 +1,6 @@
 import { invalidLogin, confirmEmail } from "./errorMessages";
 import { User } from "../../entity/User";
-import { createTypeormConnection } from "../../utils/createConnection";
+import { createTypeormConnection } from "../../utils/create/createConnection";
 import { Connection } from "typeorm";
 import { TestClient } from "../../utils/test/testClient";
 

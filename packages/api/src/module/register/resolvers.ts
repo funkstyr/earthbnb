@@ -9,8 +9,8 @@ import {
   shortPassword
 } from "./errorMessages";
 import { User } from "../../entity/User";
-import { createConfirmEmailLink } from "../../utils/confirmEmail";
-import { sendEmail } from "../../utils/sendEmail";
+import { createConfirmEmailLink } from "../../utils/email/confirmEmail";
+import { sendEmail } from "../../utils/email/sendEmail";
 
 const schema = yup.object().shape({
   email: yup

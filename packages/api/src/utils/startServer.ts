@@ -5,9 +5,9 @@ import * as connectRedis from "connect-redis";
 import { GraphQLServer } from "graphql-yoga";
 
 import { redis } from "./redis";
-import { createTypeormConnection } from "./createConnection";
+import { createTypeormConnection } from "./create/createConnection";
 import { confirmEmail } from "../routes/confirmEmail";
-import { genSchema } from "./genSchema";
+import { genSchema } from "./create/genSchema";
 
 const timeInMilliseconds = 1000 * 60 * 60 * 24 * 7; //7 days
 const RedisStore = connectRedis(session);

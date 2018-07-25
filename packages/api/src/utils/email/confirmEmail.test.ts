@@ -3,8 +3,8 @@ import fetch from "node-fetch";
 import { Connection } from "typeorm";
 
 import { createConfirmEmailLink } from "./confirmEmail";
-import { createTypeormConnection } from "./createConnection";
-import { User } from "../entity/User";
+import { createTypeormConnection } from "../create/createConnection";
+import { User } from "../../entity/User";
 
 const redis = new Redis();
 const host = process.env.TEST_HOST as string;

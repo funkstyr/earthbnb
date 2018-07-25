@@ -1,4 +1,4 @@
-import { createTypeormConnection } from "../../utils/createConnection";
+import { createTypeormConnection } from "../../utils/create/createConnection";
 import { User } from "../../entity/User";
 import { Connection } from "typeorm";
 import { TestClient } from "../../utils/test/testClient";
