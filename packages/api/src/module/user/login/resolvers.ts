@@ -1,10 +1,10 @@
 import * as bcrypt from "bcryptjs";
 
-import { ResolverMap } from "../../types/graphql-utils";
+import { ResolverMap } from "../../../types/graphql-utils";
 
-import { User } from "../../entity/User";
+import { User } from "../../../entity/User";
 import { invalidLogin, confirmEmail, passwordLocked } from "./errorMessages";
-import { userSessionIdPrefix } from "../../utils/constants";
+import { userSessionIdPrefix } from "../../../utils/constants";
 
 const error = [
   {

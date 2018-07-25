@@ -1,17 +1,17 @@
 // import * as bcrypt from "bcryptjs";
 import * as yup from "yup";
 
-import { ResolverMap } from "../../types/graphql-utils";
+import { ResolverMap } from "../../../types/graphql-utils";
 import {
   forgotPasswordLockAccount,
   createForgotpasswordLink
-} from "../../utils/email/forgotPassword";
-import { User } from "../../entity/User";
-import { forgotPasswordPrefix } from "../../utils/constants";
+} from "../../../utils/email/forgotPassword";
+import { User } from "../../../entity/User";
+import { forgotPasswordPrefix } from "../../../utils/constants";
 
 import { expiredKey } from "./errorMessages";
-import { passwordValidation } from "../../yupSchema";
-import { formatYupError } from "../../utils/formatError";
+import { passwordValidation } from "../../../yupSchema";
+import { formatYupError } from "../../../utils/formatError";
 
 const error = [
   {

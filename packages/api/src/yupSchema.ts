@@ -3,7 +3,7 @@ import {
   shortEmail,
   invalidEmail,
   shortPassword
-} from "./module/register/errorMessages";
+} from "./module/user/register/errorMessages";
 
 export const emailValidation = yup
   .string()

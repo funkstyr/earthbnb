@@ -1,5 +1,5 @@
-import { ResolverMap } from "../../types/graphql-utils";
-import { removeUserSessions } from "../../utils/redis";
+import { ResolverMap } from "../../../types/graphql-utils";
+import { removeUserSessions } from "../../../utils/redis";
 
 export const resolvers: ResolverMap = {
   Mutation: {
@@ -8,6 +8,12 @@ export const resolvers: ResolverMap = {
 
       if (userId) {
         await removeUserSessions(userId, redis);
+
+        session.destroy(err => {
+          if (err) {
+            console.log("logout session:", err);
+          }
+        });
 
         return true;
       }
