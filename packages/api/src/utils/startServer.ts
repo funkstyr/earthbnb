@@ -2,13 +2,16 @@ import "dotenv/config";
 import "reflect-metadata";
 import * as session from "express-session";
 import * as connectRedis from "connect-redis";
+import * as RateLimit from "express-rate-limit";
+import * as RateLimitRedisStore from "rate-limit-redis";
 import { GraphQLServer } from "graphql-yoga";
 
 import { redis } from "./redis";
 import { createTypeormConnection } from "./create/createConnection";
 import { confirmEmail } from "../routes/confirmEmail";
-import { genSchema } from "./create/genSchema";
+import { genSchema } from "./genSchema";
 import { redisSessionPrefix } from "./constants";
+import { createTestConnection } from "./test/createTestConnection";
 
 const timeInMilliseconds = 1000 * 60 * 60 * 24 * 7; //7 days
 const RedisStore = connectRedis(session);
@@ -18,6 +21,10 @@ const redisStoreOptions = {
 };
 
 export const startServer = async () => {
+  if (process.env.NODE_ENV === "test") {
+    await redis.flushall();
+  }
+
   const server = new GraphQLServer({
     schema: genSchema(),
     context: ({ request }: any) => ({
@@ -43,6 +50,17 @@ export const startServer = async () => {
     })
   );
 
+  server.express.use(
+    new RateLimit({
+      store: new RateLimitRedisStore({
+        client: redis
+      }),
+      windowMs: 15 * 60 * 1000, // 15 minutes
+      max: 100, // limit IP to 100 request
+      delayMs: 0
+    })
+  );
+
   const cors = {
     credentials: true,
     origin:
@@ -53,7 +71,11 @@ export const startServer = async () => {
 
   server.express.get("/confirm/:id", confirmEmail);
 
-  await createTypeormConnection();
+  if (process.env.NODE_ENV === "test") {
+    await createTestConnection(true);
+  } else {
+    await createTypeormConnection();
+  }
 
   const app = await server.start({
     port: process.env.NODE_ENV === "test" ? 0 : 4000,

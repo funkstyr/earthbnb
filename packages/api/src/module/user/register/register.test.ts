@@ -1,14 +1,14 @@
 import { Connection } from "typeorm";
 
-import { User } from "../../entity/User";
+import { User } from "../../../entity/User";
 import {
   duplicateEmail,
   invalidEmail,
   shortEmail,
   shortPassword
 } from "./errorMessages";
-import { createTypeormConnection } from "../../utils/create/createConnection";
-import { TestClient } from "../../utils/test/testClient";
+import { TestClient } from "../../../utils/test/testClient";
+import { createTestConnection } from "../../../utils/test/createTestConnection";
 
 const host = process.env.TEST_HOST as string;
 const email_valid = "tester@test.com";
@@ -21,7 +21,7 @@ let connection: Connection;
 const client = new TestClient(host);
 
 beforeAll(async () => {
-  connection = await createTypeormConnection();
+  connection = await createTestConnection();
 });
 
 afterAll(async () => {

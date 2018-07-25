@@ -1,8 +1,9 @@
-import { invalidLogin, confirmEmail } from "./errorMessages";
-import { User } from "../../entity/User";
-import { createTypeormConnection } from "../../utils/create/createConnection";
 import { Connection } from "typeorm";
-import { TestClient } from "../../utils/test/testClient";
+
+import { invalidLogin, confirmEmail } from "./errorMessages";
+import { User } from "../../../entity/User";
+import { createTypeormConnection } from "../../../utils/create/createConnection";
+import { TestClient } from "../../../utils/test/testClient";
 
 const host = process.env.TEST_HOST as string;
 const email_valid = "tester@test.com";
