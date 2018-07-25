@@ -1,4 +1,5 @@
 import { request } from "graphql-request";
+import { Connection } from "typeorm";
 
 import { User } from "../../entity/User";
 import {
@@ -28,8 +29,14 @@ const mutation = (email: string, password: string) => `
 // test error: ConnectionNotFoundError: Connection "default" was not found
 // existing user test passes
 
+let connection: Connection;
+
 beforeAll(async () => {
-  await createTypeormConnection;
+  connection = await createTypeormConnection();
+});
+
+afterAll(async () => {
+  connection.close();
 });
 
 describe("Register User", async () => {

@@ -14,7 +14,7 @@ const error = [
 
 export const resolvers: ResolverMap = {
   Mutation: {
-    login: async (_, args: GQL.ILoginOnMutationArguments) => {
+    login: async (_, args: GQL.ILoginOnMutationArguments, { session }) => {
       const { email, password } = args;
 
       const user = await User.findOne({ where: { email } });
@@ -37,6 +37,8 @@ export const resolvers: ResolverMap = {
       if (!valid) {
         return error;
       }
+
+      session.userId = user.id;
 
       return null;
     }
