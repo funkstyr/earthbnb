@@ -3,7 +3,7 @@ import * as bcrypt from "bcryptjs";
 import { ResolverMap } from "../../types/graphql-utils";
 
 import { User } from "../../entity/User";
-import { invalidLogin, confirmEmail } from "./errorMessages";
+import { invalidLogin, confirmEmail, passwordLocked } from "./errorMessages";
 import { userSessionIdPrefix } from "../../utils/constants";
 
 const error = [
@@ -33,6 +33,15 @@ export const resolvers: ResolverMap = {
           {
             path: "login",
             message: confirmEmail
+          }
+        ];
+      }
+
+      if (user.forgotPasswordLocked) {
+        return [
+          {
+            path: "login",
+            message: passwordLocked
           }
         ];
       }

@@ -1,5 +1,5 @@
 import { ResolverMap } from "../../types/graphql-utils";
-import { userSessionIdPrefix, redisSessionPrefix } from "../../utils/constants";
+import { removeUserSessions } from "../../utils/redis";
 
 export const resolvers: ResolverMap = {
   Mutation: {
@@ -7,18 +7,7 @@ export const resolvers: ResolverMap = {
       const { userId } = session;
 
       if (userId) {
-        const sessionIds = await redis.lrange(
-          `${userSessionIdPrefix}${userId}`,
-          0,
-          -1
-        );
-
-        const promises = [];
-        for (let i = 0; i < sessionIds.length; i++) {
-          promises.push(redis.del(`${redisSessionPrefix}${sessionIds[i]}`));
-        }
-
-        await Promise.all(promises);
+        await removeUserSessions(userId, redis);
 
         return true;
       }

@@ -2,26 +2,15 @@ import * as yup from "yup";
 
 import { ResolverMap } from "../../types/graphql-utils";
 import { formatYupError } from "../../utils/formatError";
-import {
-  duplicateEmail,
-  shortEmail,
-  invalidEmail,
-  shortPassword
-} from "./errorMessages";
+import { duplicateEmail } from "./errorMessages";
 import { User } from "../../entity/User";
 import { createConfirmEmailLink } from "../../utils/email/confirmEmail";
 import { sendEmail } from "../../utils/email/sendEmail";
+import { passwordValidation, emailValidation } from "../../yupSchema";
 
 const schema = yup.object().shape({
-  email: yup
-    .string()
-    .min(3, shortEmail)
-    .max(255)
-    .email(invalidEmail),
-  password: yup
-    .string()
-    .min(3, shortPassword)
-    .max(255)
+  email: emailValidation,
+  password: passwordValidation
 });
 
 export const resolvers: ResolverMap = {
