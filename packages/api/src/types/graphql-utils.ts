@@ -15,7 +15,7 @@ export type Middleware = (
   info: any
 ) => any;
 
-export interface Session {
+export interface Session extends Express.Session {
   userId?: string;
 }
 

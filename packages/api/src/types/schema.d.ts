@@ -23,6 +23,7 @@ column: number;
 interface IQuery {
 __typename: "Query";
 bye2: string | null;
+me: string | null;
 bye: string | null;
 }
 
@@ -46,6 +47,12 @@ interface IError {
 __typename: "Error";
 path: string;
 message: string;
+}
+
+interface IUser {
+__typename: "User";
+id: string;
+email: string;
 }
 }
 

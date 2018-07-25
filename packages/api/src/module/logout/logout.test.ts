@@ -4,9 +4,8 @@ import { User } from "../../entity/User";
 import { Connection } from "typeorm";
 
 let connection: Connection;
-let userId: string;
 const host = process.env.TEST_HOST as string;
-const email = "logged@test.com";
+const email = "logout@test.com";
 const password = "logged";
 
 const loginMutation = `
@@ -15,6 +14,12 @@ const loginMutation = `
             path
             message
         }
+    }
+`;
+
+const logoutMutation = `
+    mutation {
+        logout
     }
 `;
 
@@ -30,31 +35,20 @@ const meQuery = `
 beforeAll(async () => {
   connection = await createTypeormConnection();
 
-  const user = await User.create({
+  await User.create({
     email,
     password,
     confirmed: true
   }).save();
-
-  userId = user.id;
-
-  console.log("ME Test UserId:", userId);
 });
 
 afterAll(async () => {
   connection.close();
 });
 
-describe("Me", async () => {
-  test("not logged in", async () => {
-    const response = await axios.post(host, {
-      query: meQuery
-    });
-    expect(response.data.data.me).toBeNull();
-  });
-
-  test("logged in", async () => {
-    const logged = await axios.post(
+describe("Logout", async () => {
+  test("destroy cookie", async () => {
+    await axios.post(
       host,
       {
         query: loginMutation
@@ -62,19 +56,19 @@ describe("Me", async () => {
       { withCredentials: true }
     );
 
-    console.log("logged in mutation:", logged);
+    await axios.post(
+      host,
+      {
+        query: logoutMutation
+      },
+      { withCredentials: true }
+    );
 
-    //     const response = await axios.post(
-    //       host,
-    //       {
-    //         query: meQuery
-    //       },
-    //       { withCredentials: true }
-    //     );
-
-    //     console.log("me query:", response);
-
-    //     expect(response.data.data.me.email).toEqual(email);
-    //     expect(response.data.data.me.id).toEqual(userId);
+    const response = await axios.post(
+      host,
+      { query: meQuery },
+      { withCredentials: true }
+    );
+    expect(response.data.data.me).toBeNull();
   });
 });
