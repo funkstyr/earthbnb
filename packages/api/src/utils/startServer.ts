@@ -1,4 +1,5 @@
 import "dotenv/config";
+import "reflect-metadata";
 import * as session from "express-session";
 import * as connectRedis from "connect-redis";
 import { GraphQLServer } from "graphql-yoga";
@@ -26,7 +27,7 @@ export const startServer = async () => {
     session({
       name: "qid",
       store: new RedisStore(redisStoreOptions),
-      secret: process.env.SESSION_COOKIE as string,
+      secret: process.env.SESSION_SECRET as string,
       resave: false,
       saveUninitialized: false,
       cookie: {

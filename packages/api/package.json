@@ -45,8 +45,7 @@
   },
   "scripts": {
     "start": "NODE_ENV=development nodemon --exec ts-node src/index.ts",
-    "test-server": "NODE_ENV=test ts-node src/index.ts",
-    "test": "NODE_ENV=test jest --verbose --detectOpenHandles --forceExit",
+    "test": "NODE_ENV=test jest --verbose --runInBand --detectOpenHandles --forceExit",
     "gen-schema-types": "ts-node src/utils/createTypes.ts"
   },
   "jest": {
