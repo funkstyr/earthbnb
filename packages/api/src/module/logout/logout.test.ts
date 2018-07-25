@@ -42,4 +42,16 @@ describe("Logout", async () => {
     const response = await client.me();
     expect(response.data.me).toBeNull();
   });
+
+  test("multiple sessions", async () => {
+    const client1 = new TestClient(host);
+    const client2 = new TestClient(host);
+
+    await client1.login(email, password);
+    await client2.login(email, password);
+    expect(await client1.me()).toEqual(await client2.me());
+
+    await client1.logout();
+    expect(await client1.me()).toEqual(await client2.me());
+  });
 });

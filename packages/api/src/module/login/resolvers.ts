@@ -4,6 +4,7 @@ import { ResolverMap } from "../../types/graphql-utils";
 
 import { User } from "../../entity/User";
 import { invalidLogin, confirmEmail } from "./errorMessages";
+import { userSessionIdPrefix } from "../../utils/constants";
 
 const error = [
   {
@@ -14,7 +15,11 @@ const error = [
 
 export const resolvers: ResolverMap = {
   Mutation: {
-    login: async (_, args: GQL.ILoginOnMutationArguments, { session }) => {
+    login: async (
+      _,
+      args: GQL.ILoginOnMutationArguments,
+      { session, redis, req }
+    ) => {
       const { email, password } = args;
 
       const user = await User.findOne({ where: { email } });
@@ -39,6 +44,9 @@ export const resolvers: ResolverMap = {
       }
 
       session.userId = user.id;
+      if (req.sessionID) {
+        await redis.lpush(`${userSessionIdPrefix}${user.id}`, req.sessionID);
+      }
 
       return null;
     }

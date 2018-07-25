@@ -8,10 +8,14 @@ import { redis } from "./redis";
 import { createTypeormConnection } from "./create/createConnection";
 import { confirmEmail } from "../routes/confirmEmail";
 import { genSchema } from "./create/genSchema";
+import { redisSessionPrefix } from "./constants";
 
 const timeInMilliseconds = 1000 * 60 * 60 * 24 * 7; //7 days
 const RedisStore = connectRedis(session);
-const redisStoreOptions = {};
+const redisStoreOptions = {
+  client: redis as any,
+  prefix: redisSessionPrefix
+};
 
 export const startServer = async () => {
   const server = new GraphQLServer({
@@ -19,6 +23,7 @@ export const startServer = async () => {
     context: ({ request }: any) => ({
       redis,
       session: request.session,
+      req: request,
       url: `${request.protocol}://${request.get("host")}`
     })
   } as any);
