@@ -1,7 +1,7 @@
 {
   "name": "@seed/api",
   "version": "0.0.1",
-  "description": "",
+  "description": "GraphQL API",
   "devDependencies": {
     "@types/bcryptjs": "^2.4.1",
     "@types/connect-redis": "^0.0.7",
