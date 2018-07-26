@@ -1,11 +1,44 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import App from './App';
-import './index.css';
-import registerServiceWorker from './registerServiceWorker';
+import * as React from "react";
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root') as HTMLElement
+import { render } from "react-dom";
+import { Provider } from "react-redux";
+import reduxThunk from "redux-thunk";
+import { createStore, applyMiddleware } from "redux";
+
+// import registerServiceWorker from './registerServiceWorker';
+import App from "./components";
+import reducers from "./reducers";
+import { loadState, saveState } from "./utils";
+
+const rootElement = document.getElementById("root");
+const presistedState = loadState();
+const store = createStore(
+  reducers,
+  { ...presistedState },
+  applyMiddleware(reduxThunk)
 );
-registerServiceWorker();
+
+store.subscribe(() => saveState({ display: store.getState().display }));
+
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  rootElement
+);
+
+declare var module: any;
+
+if (module.hot) {
+  module.hot.accept("./components/App/App", () => {
+    const NextApp = require("./components/App/App").default;
+
+    render(
+      <Provider store={store}>
+        <NextApp />
+      </Provider>,
+      rootElement
+    );
+  });
+}
+// registerServiceWorker();
