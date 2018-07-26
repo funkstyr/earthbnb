@@ -21,3 +21,7 @@ export const registerSchema = yup.object().shape({
   email: emailValidation,
   password: passwordValidation
 });
+
+export const newPasswordSchema = yup.object().shape({
+  newPassword: passwordValidation
+});

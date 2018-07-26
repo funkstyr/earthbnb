@@ -1,6 +1,5 @@
 // import * as bcrypt from "bcryptjs";
-import * as yup from "yup";
-import { passwordValidation } from "@earthbnb/common";
+import { newPasswordSchema } from "@earthbnb/common";
 
 import { ResolverMap } from "../../../types/graphql-utils";
 import {
@@ -20,11 +19,6 @@ const error = [
     message: expiredKey
   }
 ];
-
-// todo: maybe move to user common pkg
-const schema = yup.object().shape({
-  newPassword: passwordValidation
-});
 
 export const resolvers: ResolverMap = {
   Mutation: {
@@ -58,7 +52,10 @@ export const resolvers: ResolverMap = {
       }
 
       try {
-        await schema.validate({ newPassword }, { abortEarly: false });
+        await newPasswordSchema.validate(
+          { newPassword },
+          { abortEarly: false }
+        );
       } catch (err) {
         return formatYupError(err);
       }

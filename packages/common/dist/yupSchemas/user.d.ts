@@ -5,3 +5,4 @@ export declare const shortPassword = "password must be at least 3 characters";
 export declare const emailValidation: yup.StringSchema;
 export declare const passwordValidation: yup.StringSchema;
 export declare const registerSchema: yup.ObjectSchema<{}>;
+export declare const newPasswordSchema: yup.ObjectSchema<{}>;
