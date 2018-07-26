@@ -5,7 +5,7 @@ import { makeExecutableSchema } from "graphql-tools";
 import { mergeTypes, mergeResolvers } from "merge-graphql-schemas";
 
 export const genSchema = () => {
-  const pathToModules = path.join(__dirname, "../modules");
+  const pathToModules = path.join(__dirname, "../module");
 
   const graphqlTypes = glob
     .sync(`${pathToModules}/**/*.graphql`)
