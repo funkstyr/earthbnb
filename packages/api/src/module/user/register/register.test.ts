@@ -1,12 +1,8 @@
 import { Connection } from "typeorm";
+import { invalidEmail, shortEmail, shortPassword } from "@earthbnb/common";
 
 import { User } from "../../../entity/User";
-import {
-  duplicateEmail,
-  invalidEmail,
-  shortEmail,
-  shortPassword
-} from "./errorMessages";
+import { duplicateEmail } from "./errorMessages";
 import { TestClient } from "../../../utils/test/testClient";
 import { createTestConnection } from "../../../utils/test/createTestConnection";
 

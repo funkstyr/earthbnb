@@ -30,6 +30,7 @@
     "typescript": "2.8.3"
   },
   "dependencies": {
+    "@earthbnb/common": "0.1.0",
     "@gql2ts/from-schema": "^1.8.1",
     "bcryptjs": "^2.4.3",
     "connect-redis": "^3.3.3",

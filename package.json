@@ -7,10 +7,12 @@
     "packages/*"
   ],
   "scripts": {
-    "web": "cd packages/web && npm run start",
-    "api": "cd packages/api && npm run start",
+    "web": "cd packages/web && yarn start",
+    "api": "cd packages/api && yarn start",
     "api:test": "cd packages/api && yarn test",
-    "dev": "concurrently \"npm run web\" \"npm run api\""
+    "dev": "concurrently \"yarn web\" \"yarn api\"",
+    "common:build": "cd packages/common && yarn build",
+    "controller:build": "cd packages/controller && yarn build"
   },
   "devDependencies": {
     "concurrently": "^3.6.0"

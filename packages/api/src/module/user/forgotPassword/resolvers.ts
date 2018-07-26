@@ -1,5 +1,6 @@
 // import * as bcrypt from "bcryptjs";
 import * as yup from "yup";
+import { passwordValidation } from "@earthbnb/common";
 
 import { ResolverMap } from "../../../types/graphql-utils";
 import {
@@ -10,7 +11,7 @@ import { User } from "../../../entity/User";
 import { forgotPasswordPrefix } from "../../../utils/constants";
 
 import { expiredKey } from "./errorMessages";
-import { passwordValidation } from "../../../yupSchema";
+
 import { formatYupError } from "../../../utils/formatError";
 
 const error = [
@@ -20,6 +21,7 @@ const error = [
   }
 ];
 
+// todo: maybe move to user common pkg
 const schema = yup.object().shape({
   newPassword: passwordValidation
 });

@@ -8,7 +8,7 @@
 | api        |      QraphQL endpoint for database access       |
 | server     | Server to populate database with 3rd party info |
 | common     |       Shared between servers and clients        |
-| controller |      Shared between clients for api acess       |
+| controller |      Shared between clients for api access      |
 
 ### NPM
 
