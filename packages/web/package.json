@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "@seed/web",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -27,11 +27,15 @@
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
+    "@types/antd": "^1.0.0",
     "@types/jest": "^23.3.0",
     "@types/node": "^10.5.3",
     "@types/react": "^16.4.7",
     "@types/react-dom": "^16.0.6",
+    "@types/react-helmet": "^5.0.6",
+    "@types/react-loadable": "^5.4.0",
     "@types/react-redux": "^6.0.5",
+    "@types/react-router-dom": "^4.3.0",
     "@types/redux-thunk": "^2.1.0",
     "husky": "^0.14.3",
     "lint-staged": "^7.2.0",
