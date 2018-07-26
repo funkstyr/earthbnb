@@ -1,7 +1,7 @@
 {
-  "name": "seed",
+  "name": "earthbnb",
   "version": "1.0.0",
-  "description": "Project seed",
+  "description": "Airbnb clone - personal project",
   "private": true,
   "workspaces": [
     "packages/*"

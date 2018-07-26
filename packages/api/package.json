@@ -1,5 +1,5 @@
 {
-  "name": "@seed/api",
+  "name": "@earthbnb/api",
   "version": "0.0.1",
   "description": "GraphQL API",
   "devDependencies": {
