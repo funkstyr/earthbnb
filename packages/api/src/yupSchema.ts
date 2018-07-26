@@ -9,9 +9,11 @@ export const emailValidation = yup
   .string()
   .min(3, shortEmail)
   .max(255)
-  .email(invalidEmail);
+  .email(invalidEmail)
+  .required();
 
 export const passwordValidation = yup
   .string()
   .min(3, shortPassword)
-  .max(255);
+  .max(255)
+  .required();

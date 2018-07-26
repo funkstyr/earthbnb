@@ -2,5 +2,8 @@
   "extends": ["../../tslint.json", "tslint-react"],
   "linterOptions": {
     "exclude": ["config/**/*.js", "node_modules/**/*.ts"]
+  },
+  "rules": {
+    "jsx-no-multiline-js": false
   }
 }
