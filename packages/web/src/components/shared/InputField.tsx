@@ -2,38 +2,40 @@ import * as React from "react";
 import { FieldProps } from "formik";
 import { Form, Input, InputNumber } from "antd";
 
+const FormItem = Form.Item;
+
 export const InputField: React.SFC<
   FieldProps<any> & {
     prefix: React.ReactNode;
     label?: string;
-    userNumberComponent?: boolean;
+    useNumberComponent?: boolean;
   }
 > = ({
-  field: { onChange, ...field }, // { name, value, onChaneg, onBlur}
-  form: { touched, errors, setFieldValue },
+  field: { onChange, ...field },
+  form: { touched, errors, setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   label,
-  useNumberComponent = false, // values, setX, handleX, dirty, isValid, status
+  useNumberComponent = false,
   ...props
 }) => {
-  const errorMessage = touched[field.name] && errors[field.name];
+  const errorMsg = touched[field.name] && errors[field.name];
 
   const Comp = useNumberComponent ? InputNumber : Input;
 
   return (
-    <Form.Item
-      validateStatus={errorMessage ? "error" : undefined}
-      help={errorMessage}
+    <FormItem
       label={label}
+      help={errorMsg}
+      validateStatus={errorMsg ? "error" : undefined}
     >
       <Comp
         {...field}
         {...props}
         onChange={
           useNumberComponent
-            ? (newValues: any) => setFieldValue(field.name, newValue)
+            ? (newValue: any) => setFieldValue(field.name, newValue)
             : onChange
         }
       />
-    </Form.Item>
+    </FormItem>
   );
 };

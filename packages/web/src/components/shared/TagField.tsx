@@ -1,6 +1,8 @@
 import * as React from "react";
 import { FieldProps } from "formik";
-import { Form, select } from "antd";
+import { Form, Select } from "antd";
+
+const FormItem = Form.Item;
 
 export const TagField: React.SFC<
   FieldProps<any> & {
@@ -8,28 +10,25 @@ export const TagField: React.SFC<
     label?: string;
   }
 > = ({
-  field: { ...field, onBlur: _ }, // { name, value, onChaneg, onBlur}
-  form: { touched, errors, setFieldValue },
+  field: { onChange, onBlur: _, ...field },
+  form: { touched, errors, setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   label,
-  useNumberComponent = false, // values, setX, handleX, dirty, isValid, status
   ...props
 }) => {
-  const errorMessage = touched[field.name] && errors[field.name];
-
-  // const Comp = useNumberComponent ? InputNumber : Input;
+  const errorMsg = touched[field.name] && errors[field.name];
 
   return (
-    <Form.Item
-      validateStatus={errorMessage ? "error" : undefined}
-      help={errorMessage}
+    <FormItem
       label={label}
+      help={errorMsg}
+      validateStatus={errorMsg ? "error" : undefined}
     >
       <Select
         {...field}
         {...props}
         mode="tags"
-        onChange={(newValues: any) => setFieldValue(field.name, newValue)}
+        onChange={(newValue: any) => setFieldValue(field.name, newValue)}
       />
-    </Form.Item>
+    </FormItem>
   );
 };

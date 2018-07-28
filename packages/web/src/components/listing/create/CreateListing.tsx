@@ -4,7 +4,6 @@ import { withFormik, FormikProps, Field, Form } from "formik";
 
 import { InputField } from "../../shared/InputField";
 import { TagField } from "../../shared/TagField";
-import { NormalizedErrorMap } from "@earthbnb/controller";
 
 interface FormValues {
   name: string;
@@ -19,9 +18,12 @@ interface FormValues {
 }
 
 interface Props {
-  submit: (values: FormValues) => Promise<NormalizedErrorMap | null>;
   onFinish: () => void;
 }
+
+// interface State {
+//   page: number;
+// }
 
 class CreateListing extends React.PureComponent<
   FormikProps<FormValues> & Props
@@ -196,17 +198,8 @@ export default withFormik<Props, FormValues>({
     longitude: 0,
     amenities: []
   }),
-  handleSubmit: async (values, { props, setErrors }) => {
-    // const errors = await props.submit(values);
-
-    console.log("Created Listing", values);
-
-    const errors = null;
-
-    if (errors) {
-      setErrors(errors);
-    } else {
-      props.onFinish();
-    }
+  handleSubmit: async (values: FormValues, { props, setSubmitting }: any) => {
+    await props.createListing(values);
+    setSubmitting(false);
   }
 })(CreateListing);
