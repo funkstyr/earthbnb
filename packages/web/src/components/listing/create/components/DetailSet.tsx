@@ -44,38 +44,43 @@ import { InputField } from "../../../shared/InputField";
 // }
 
 export const DetailsSet = () => (
-  <React.Fragment>
-    <Field
-      name="price"
-      placeholder="Price"
-      label="Price"
-      useNumberComponent={true}
-      type="input"
-      component={InputField}
-    />
-    <Field
-      name="beds"
-      placeholder="Beds"
-      label="Beds"
-      useNumberComponent={true}
-      type="input"
-      component={InputField}
-    />
-    <Field
-      name="baths"
-      placeholder="Baths"
-      label="Baths"
-      useNumberComponent={true}
-      type="input"
-      component={InputField}
-    />
-    <Field
-      name="guests"
-      placeholder="Guests"
-      label="Guests"
-      useNumberComponent={true}
-      type="input"
-      component={InputField}
-    />
-  </React.Fragment>
+  <div style={{ display: "flex" }}>
+    <div style={{ marginRight: "auto" }}>
+      <Field
+        name="price"
+        placeholder="Price"
+        label="Price"
+        useNumberComponent={true}
+        type="input"
+        component={InputField}
+      />
+      <Field
+        name="guests"
+        placeholder="Guests"
+        label="Guests"
+        useNumberComponent={true}
+        type="input"
+        component={InputField}
+      />
+    </div>
+    <div style={{ marginLeft: "auto" }}>
+      {" "}
+      <Field
+        name="beds"
+        placeholder="Beds"
+        label="Beds"
+        useNumberComponent={true}
+        type="input"
+        component={InputField}
+      />
+      <Field
+        name="baths"
+        placeholder="Baths"
+        label="Baths"
+        useNumberComponent={true}
+        type="input"
+        component={InputField}
+      />
+    </div>
+  </div>
 );
