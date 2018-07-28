@@ -205,6 +205,7 @@ export default withCreateListing(
       await props.createListing(values);
       setSubmitting(false);
       message.success("Create Listing");
+      props.onFinish();
     }
   })(CreateListing as any)
 );
