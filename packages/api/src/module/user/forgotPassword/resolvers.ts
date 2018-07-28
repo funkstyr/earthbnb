@@ -1,17 +1,15 @@
-// import * as bcrypt from "bcryptjs";
-import * as yup from "yup";
+import * as bcrypt from "bcryptjs";
+import { newPasswordSchema } from "@earthbnb/common";
 
 import { ResolverMap } from "../../../types/graphql-utils";
-import {
-  forgotPasswordLockAccount,
-  createForgotpasswordLink
-} from "../../../utils/email/forgotPassword";
+import { createForgotpasswordLink } from "../../../utils/email/forgotPassword";
 import { User } from "../../../entity/User";
 import { forgotPasswordPrefix } from "../../../utils/constants";
 
 import { expiredKey } from "./errorMessages";
-import { passwordValidation } from "../../../yupSchema";
+
 import { formatYupError } from "../../../utils/formatError";
+import { sendEmail } from "../../../utils/email/sendEmail";
 
 const error = [
   {
@@ -19,10 +17,6 @@ const error = [
     message: expiredKey
   }
 ];
-
-const schema = yup.object().shape({
-  newPassword: passwordValidation
-});
 
 export const resolvers: ResolverMap = {
   Mutation: {
@@ -36,12 +30,18 @@ export const resolvers: ResolverMap = {
         return false;
       }
 
-      await forgotPasswordLockAccount(user.id, redis);
-      const url = await createForgotpasswordLink("", user.id, redis);
-      console.log("fp link:", url);
-      //send email
+      // await forgotPasswordLockAccount(user.id, redis);
+      const url = await createForgotpasswordLink(
+        process.env.FRONTEND_HOST as string,
+        user.id,
+        redis
+      );
 
-      return true;
+      const emailUrl = await sendEmail(email, url, "Rest Password");
+
+      console.log("Returning url:", emailUrl);
+
+      return emailUrl;
     },
     forgotPasswordChange: async (
       _,
@@ -49,26 +49,40 @@ export const resolvers: ResolverMap = {
       { redis }
     ) => {
       const redisKey = `${forgotPasswordPrefix}${key}`;
-      const userId = redis.get(redisKey);
+      const userId = await redis.get(redisKey);
 
       if (!userId) {
         return error;
       }
 
       try {
-        await schema.validate({ newPassword }, { abortEarly: false });
+        await newPasswordSchema.validate(
+          { newPassword },
+          { abortEarly: false }
+        );
       } catch (err) {
         return formatYupError(err);
       }
 
+      const hashedPassword = await bcrypt.hash(newPassword, 15);
+
       const updatePromise = User.update(
         { id: `${userId}` },
-        { forgotPasswordLocked: false, password: newPassword }
+        { forgotPasswordLocked: false, password: hashedPassword }
       );
 
       const deleteKeyPromise = redis.del(redisKey);
 
       await Promise.all([updatePromise, deleteKeyPromise]);
+
+      // set cookie - for auto login
+      // session.userId = userId;
+
+      // if(req.sessionID) {
+      //   await redis.lpush(`${userSessionIdPrefix}${userId}`, req.sessionID);
+      // }
+
+      // return { sessionId: req.sessionID}
 
       return null;
     }

@@ -37,5 +37,11 @@
       "migrationsDir": "src/migration",
       "subscribersDir": "src/subscriber"
     }
+  },
+  {
+    "name": "production",
+    "type": "postgres",
+    "synchronize": true,
+    "logging": true
   }
 ]

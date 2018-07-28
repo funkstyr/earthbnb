@@ -8,14 +8,18 @@
 | api        |      QraphQL endpoint for database access       |
 | server     | Server to populate database with 3rd party info |
 | common     |       Shared between servers and clients        |
-| controller |      Shared between clients for api acess       |
+| controller |      Shared between clients for api access      |
 
 ### NPM
 
-`--detectOpenHandles`: just to get rid of Jest error
+Globals
 
-- Researched and found it could be a create-react-app issue with react-scripts and Jest
-- Need to look into running `/web` CRA and `/api` Jest in yarn workspaces
+- `npm install -g netfliy-cli`
+- `npm install -g jest-cli`
+- `npm install -g exp`
+- `npm install -g apollo`
+- `npm install -g lerna` - might not need to do; already have manual build
+- Install Heroku CLI
 
 ### Yarn
 

@@ -13,7 +13,7 @@ export const confirmEmail = async (req: Request, res: Response) => {
     await User.update({ id: userId }, { confirmed: true });
     await redis.del(`${confirmEmailPrefix}${id}`);
 
-    res.send("ok"); // redirect to front-end
+    res.redirect(`${process.env.FRONTEND_HOST}/login`); // redirect to front-end
   } else {
     res.send("invalid");
   }

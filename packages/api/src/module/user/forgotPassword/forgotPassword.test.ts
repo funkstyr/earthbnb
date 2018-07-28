@@ -1,5 +1,6 @@
 import * as Redis from "ioredis";
 import { Connection } from "typeorm";
+import { shortPassword } from "@earthbnb/common";
 
 import { createTypeormConnection } from "../../../utils/create/createConnection";
 import { User } from "../../../entity/User";
@@ -9,7 +10,7 @@ import {
   forgotPasswordLockAccount
 } from "../../../utils/email/forgotPassword";
 import { passwordLocked } from "../login/errorMessages";
-import { shortPassword } from "../register/errorMessages";
+
 import { expiredKey } from "./errorMessages";
 
 let connection: Connection;

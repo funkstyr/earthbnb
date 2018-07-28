@@ -6,12 +6,14 @@ import { User } from "../../../entity/User";
 import { invalidLogin, confirmEmail, passwordLocked } from "./errorMessages";
 import { userSessionIdPrefix } from "../../../utils/constants";
 
-const error = [
-  {
-    path: "login",
-    message: invalidLogin
-  }
-];
+const error = {
+  errors: [
+    {
+      path: "login",
+      message: invalidLogin
+    }
+  ]
+};
 
 export const resolvers: ResolverMap = {
   Mutation: {
@@ -29,21 +31,25 @@ export const resolvers: ResolverMap = {
       }
 
       if (!user.confirmed) {
-        return [
-          {
-            path: "login",
-            message: confirmEmail
-          }
-        ];
+        return {
+          errors: [
+            {
+              path: "login",
+              message: confirmEmail
+            }
+          ]
+        };
       }
 
       if (user.forgotPasswordLocked) {
-        return [
-          {
-            path: "login",
-            message: passwordLocked
-          }
-        ];
+        return {
+          errors: [
+            {
+              path: "login",
+              message: passwordLocked
+            }
+          ]
+        };
       }
 
       const valid = await bcrypt.compare(password, user.password);
@@ -57,7 +63,7 @@ export const resolvers: ResolverMap = {
         await redis.lpush(`${userSessionIdPrefix}${user.id}`, req.sessionID);
       }
 
-      return null;
+      return { sessionId: req.sessionID };
     }
   }
 };

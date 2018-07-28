@@ -4,8 +4,7 @@ import {
   Column,
   BaseEntity,
   PrimaryGeneratedColumn,
-  BeforeInsert,
-  BeforeUpdate
+  BeforeInsert
 } from "typeorm";
 
 @Entity("users")
@@ -28,10 +27,12 @@ export class User extends BaseEntity {
     this.password = await bcrypt.hash(this.password, 15);
   }
 
-  @BeforeUpdate()
-  async hashNewPassword() {
-    if (this.password) {
-      this.password = await bcrypt.hash(this.password, 15);
-    }
-  }
+  // @BeforeUpdate()
+  // async hashNewPassword() {
+  //   console.log("BeforeUpdate:", this);
+
+  //   if (this.password) {
+  //     this.password = await bcrypt.hash(this.password, 15);
+  //   }
+  // }
 }

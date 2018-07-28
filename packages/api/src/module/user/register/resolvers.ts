@@ -1,4 +1,4 @@
-import * as yup from "yup";
+import { registerSchema } from "@earthbnb/common";
 
 import { ResolverMap } from "../../../types/graphql-utils";
 import { formatYupError } from "../../../utils/formatError";
@@ -6,12 +6,6 @@ import { duplicateEmail } from "./errorMessages";
 import { User } from "../../../entity/User";
 import { createConfirmEmailLink } from "../../../utils/email/confirmEmail";
 import { sendEmail } from "../../../utils/email/sendEmail";
-import { passwordValidation, emailValidation } from "../../../yupSchema";
-
-const schema = yup.object().shape({
-  email: emailValidation,
-  password: passwordValidation
-});
 
 export const resolvers: ResolverMap = {
   Mutation: {
@@ -21,7 +15,7 @@ export const resolvers: ResolverMap = {
       { redis, url }
     ) => {
       try {
-        await schema.validate(args, { abortEarly: false });
+        await registerSchema.validate(args, { abortEarly: false });
       } catch (err) {
         return formatYupError(err);
       }
@@ -52,7 +46,16 @@ export const resolvers: ResolverMap = {
       const emailURL = await createConfirmEmailLink(url, user.id, redis);
 
       if (process.env.NODE_ENV !== "test") {
-        sendEmail(email, emailURL);
+        const confirmUrl = await sendEmail(email, emailURL, "Confirm Email");
+
+        if (confirmUrl) {
+          return [
+            {
+              path: "email",
+              message: confirmUrl
+            }
+          ];
+        }
       }
 
       return null;
