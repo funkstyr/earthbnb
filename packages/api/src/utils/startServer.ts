@@ -27,7 +27,7 @@ export const startServer = async () => {
     await redis.flushall();
   }
 
-  const schema = genSchema as any;
+  const schema = genSchema() as any;
   applyMiddleware(schema, middleware);
 
   const server = new GraphQLServer({

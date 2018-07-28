@@ -2,12 +2,12 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { Form as AntForm, Icon, Button } from "antd";
 import { withFormik, FormikProps, Field, Form } from "formik";
-// import { loginSchema } from "@earthbnb/common";
+import { newPasswordSchema } from "@earthbnb/common";
 import { NormalizedErrorMap } from "@earthbnb/controller";
-import { InputField } from "../shared/InputField";
+import { InputField } from "../../shared/InputField";
 
 interface FormValues {
-  email: string;
+  newPassword: string;
 }
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
   onFinish: () => void;
 }
 
-class ForgotPassword extends React.PureComponent<
+class ChangePassword extends React.PureComponent<
   FormikProps<FormValues> & Props
 > {
   render() {
@@ -23,11 +23,11 @@ class ForgotPassword extends React.PureComponent<
       <Form style={{ display: "flex" }}>
         <div style={{ width: 400, margin: "auto" }}>
           <Field
-            name="email"
-            placeholder="Email"
-            type="text"
+            name="newPassword"
+            placeholder="New Password"
+            type="password"
             component={InputField}
-            prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
+            prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
           />
 
           <AntForm.Item>
@@ -36,7 +36,7 @@ class ForgotPassword extends React.PureComponent<
               htmlType="submit"
               className="login-form-button"
             >
-              Submit
+              Change Password
             </Button>
 
             <Link to="/register" style={{ marginLeft: 20 }}>
@@ -50,8 +50,8 @@ class ForgotPassword extends React.PureComponent<
 }
 
 export default withFormik<Props, FormValues>({
-  // validationSchema: loginSchema,
-  mapPropsToValues: () => ({ email: "" }),
+  validationSchema: newPasswordSchema,
+  mapPropsToValues: () => ({ newPassword: "" }),
   handleSubmit: async (values, { props, setErrors }) => {
     const errors = await props.submit(values);
 
@@ -61,4 +61,4 @@ export default withFormik<Props, FormValues>({
       props.onFinish();
     }
   }
-})(ForgotPassword);
+})(ChangePassword);

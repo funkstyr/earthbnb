@@ -1,13 +1,13 @@
 import * as React from "react";
 import Helmet from "react-helmet";
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import { Layout } from "antd";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import "./App.css";
-import routes from "./routes";
+import { Routes } from "./components/Routes";
 import * as actions from "../../actions";
 
 const root: React.CSSProperties = {
@@ -19,12 +19,6 @@ const root: React.CSSProperties = {
 };
 
 class App extends React.Component {
-  renderRoutes = () => {
-    return routes.map(route => {
-      return <Route key={route.title} {...route} />;
-    });
-  };
-
   public render() {
     return (
       <Router>
@@ -35,7 +29,7 @@ class App extends React.Component {
 
             <Layout.Content style={{ padding: "20px 20px", marginTop: 64 }}>
               <div style={{ background: "#fff", padding: 24, minHeight: 380 }}>
-                <Switch>{this.renderRoutes()}</Switch>
+                <Routes />
               </div>
             </Layout.Content>
 

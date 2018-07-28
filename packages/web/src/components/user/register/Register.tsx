@@ -2,12 +2,13 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { Form as AntForm, Icon, Button } from "antd";
 import { withFormik, FormikProps, Field, Form } from "formik";
-import { newPasswordSchema } from "@earthbnb/common";
+import { registerSchema } from "@earthbnb/common";
 import { NormalizedErrorMap } from "@earthbnb/controller";
-import { InputField } from "../shared/InputField";
+import { InputField } from "../../shared/InputField";
 
 interface FormValues {
-  newPassword: string;
+  email: string;
+  password: string;
 }
 
 interface Props {
@@ -15,16 +16,22 @@ interface Props {
   onFinish: () => void;
 }
 
-class ChangePassword extends React.PureComponent<
-  FormikProps<FormValues> & Props
-> {
+class Register extends React.PureComponent<FormikProps<FormValues> & Props> {
   render() {
     return (
       <Form style={{ display: "flex" }}>
         <div style={{ width: 400, margin: "auto" }}>
           <Field
-            name="newPassword"
-            placeholder="New Password"
+            name="email"
+            placeholder="Email"
+            type="text"
+            component={InputField}
+            prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
+          />
+
+          <Field
+            name="password"
+            placeholder="Password"
             type="password"
             component={InputField}
             prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
@@ -36,11 +43,17 @@ class ChangePassword extends React.PureComponent<
               htmlType="submit"
               className="login-form-button"
             >
-              Change Password
+              Register
             </Button>
 
-            <Link to="/register" style={{ marginLeft: 20 }}>
-              Register
+            <Link to="/login" style={{ marginLeft: 20 }}>
+              Login
+            </Link>
+          </AntForm.Item>
+
+          <AntForm.Item>
+            <Link className="login-form-forgot" to="/forgot-password">
+              Forgot password
             </Link>
           </AntForm.Item>
         </div>
@@ -50,8 +63,8 @@ class ChangePassword extends React.PureComponent<
 }
 
 export default withFormik<Props, FormValues>({
-  validationSchema: newPasswordSchema,
-  mapPropsToValues: () => ({ newPassword: "" }),
+  validationSchema: registerSchema,
+  mapPropsToValues: () => ({ email: "", password: "" }),
   handleSubmit: async (values, { props, setErrors }) => {
     const errors = await props.submit(values);
 
@@ -61,4 +74,4 @@ export default withFormik<Props, FormValues>({
       props.onFinish();
     }
   }
-})(ChangePassword);
+})(Register);

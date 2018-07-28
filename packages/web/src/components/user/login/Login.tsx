@@ -2,9 +2,9 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { Form as AntForm, Icon, Button } from "antd";
 import { withFormik, FormikProps, Field, Form } from "formik";
-import { registerSchema } from "@earthbnb/common";
+import { loginSchema } from "@earthbnb/common";
 import { NormalizedErrorMap } from "@earthbnb/controller";
-import { InputField } from "../shared/InputField";
+import { InputField } from "../../shared/InputField";
 
 interface FormValues {
   email: string;
@@ -16,7 +16,7 @@ interface Props {
   onFinish: () => void;
 }
 
-class Register extends React.PureComponent<FormikProps<FormValues> & Props> {
+class Login extends React.PureComponent<FormikProps<FormValues> & Props> {
   render() {
     return (
       <Form style={{ display: "flex" }}>
@@ -43,11 +43,11 @@ class Register extends React.PureComponent<FormikProps<FormValues> & Props> {
               htmlType="submit"
               className="login-form-button"
             >
-              Register
+              Login
             </Button>
 
-            <Link to="/login" style={{ marginLeft: 20 }}>
-              Login
+            <Link to="/register" style={{ marginLeft: 20 }}>
+              Register
             </Link>
           </AntForm.Item>
 
@@ -63,7 +63,7 @@ class Register extends React.PureComponent<FormikProps<FormValues> & Props> {
 }
 
 export default withFormik<Props, FormValues>({
-  validationSchema: registerSchema,
+  validationSchema: loginSchema,
   mapPropsToValues: () => ({ email: "", password: "" }),
   handleSubmit: async (values, { props, setErrors }) => {
     const errors = await props.submit(values);
@@ -74,4 +74,4 @@ export default withFormik<Props, FormValues>({
       props.onFinish();
     }
   }
-})(Register);
+})(Login);
