@@ -1,4 +1,4 @@
 type Mutation {
-  sendForgotPasswordEmail(email: String!): Boolean
+  sendForgotPasswordEmail(email: String!): String
   forgotPasswordChange(newPassword: String!, key: String!): [Error!]
 }

@@ -1,25 +1,38 @@
-import * as SparkPost from "sparkpost";
+import * as nodemailer from "nodemailer";
 
-const client = new SparkPost(`${process.env.SPARKPOST_API_KEY}`);
+const transporter = nodemailer.createTransport({
+  host: "smtp.ethereal.email",
+  port: 587,
+  auth: {
+    user: process.env.NODEMAILER_USER,
+    pass: process.env.NODEMAILER_PASSWORD
+  }
+});
 
-export const sendEmail = async (address: string, url: string) => {
-  const response = await client.transmissions.send({
-    options: {
-      sandbox: true
-    },
-    content: {
-      from: "test@seed.com",
-      subject: "Seed Registration",
-      html: `
+export const sendEmail = async (address: string, url: string, text: string) => {
+  const message = {
+    from: "Earthbnb <noReply@earthbnb.com>",
+    to: `User <${address}>`,
+    subject: "Earthbnb Registration - Confirm",
+    html: `
         <html>
             <body>
-                <a href="${url}">Confirm Email</a>
+                <a href="${url}">${text}</a>
             </body>
         </html>
       `
-    },
-    recipients: [{ address }]
-  });
+  };
 
-  console.log("Sent email:", response);
+  transporter.sendMail(message, (err, info) => {
+    if (err) {
+      console.log("Email Error:", err.message);
+    }
+
+    console.log("Message sent:", info.messageId);
+
+    const url = nodemailer.getTestMessageUrl(info);
+    console.log("Preview url:", url);
+
+    return url;
+  });
 };

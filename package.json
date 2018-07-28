@@ -1,18 +1,46 @@
 {
-  "name": "seed",
+  "name": "earthbnb",
   "version": "1.0.0",
-  "description": "Project seed",
+  "description": "Airbnb clone - personal project",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/rimraf",
+      ":**/rimraf/**",
+      "**/react-native",
+      "**/react-native/**",
+      "**/react-native-elements",
+      "**/react-native-elements/**",
+      "**/expo",
+      "**/expo/**",
+      "**/react-native-typescript-transformer",
+      "**/react-native-typescript-transformer/**",
+      "**/metro-bundler-config-yarn-workspaces",
+      "**/metro-bundler-config-yarn-workspaces/**"
+    ]
+  },
   "scripts": {
-    "web": "cd packages/web && npm run start",
-    "api": "cd packages/api && npm run start",
+    "web": "cd packages/web && yarn start",
+    "api": "cd packages/api && yarn start",
     "api:test": "cd packages/api && yarn test",
-    "dev": "concurrently \"npm run web\" \"npm run api\""
+    "api:build": "cd packages/api && yarn build",
+    "api:docker:build": "docker build -t funkstyr/earthbnb:0.1.0 .",
+    "api:docker:run": "docker run -p 3001:4000 -d funkstyr/earthbnb:0.1.0",
+    "dev": "concurrently \"yarn web\" \"yarn api\"",
+    "common:build": "cd packages/common && yarn build",
+    "controller:build": "cd packages/controller && yarn build",
+    "build": "concurrently \"yarn common:build\" \"yarn controller:build\" && yarn api:build",
+    "lerna:api": "lerna run build --scope{@earthbnb/common,@earthbnb/api}",
+    "lerna:web": "lerna run build --scope{@earthbnb/common,@earthbnb/controller,@earthbnb/web}",
+    "api:deploy": "yarn lerna:api && heroku container:login && heroku container:push --app=gentle-tor-29321 web && heroku container:release --app=gentle-tor-29321 web",
+    "web:deploy": "yarn lerna:web && netlify deploy",
+    "api:logs": "heroku logs -a gentle-tor-29321"
   },
   "devDependencies": {
-    "concurrently": "^3.6.0"
+    "concurrently": "^3.6.0",
+    "lerna": "^2.11.0"
   }
 }

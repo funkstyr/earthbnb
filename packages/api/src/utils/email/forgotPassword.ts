@@ -21,7 +21,7 @@ export const createForgotpasswordLink = async (
     expiresInSeconds
   );
 
-  return `${url}/password/${id}`;
+  return `${url}/change-password/${id}`;
 };
 
 export const forgotPasswordLockAccount = async (

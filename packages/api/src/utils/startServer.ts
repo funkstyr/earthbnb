@@ -77,8 +77,10 @@ export const startServer = async () => {
     await createTypeormConnection();
   }
 
+  const port = process.env.PORT || 4000;
+
   const app = await server.start({
-    port: process.env.NODE_ENV === "test" ? 0 : 4000,
+    port: process.env.NODE_ENV === "test" ? 0 : port,
     cors
   });
 
