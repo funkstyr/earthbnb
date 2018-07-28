@@ -1,8 +1,10 @@
 import * as React from "react";
 import { Button, Steps, message } from "antd";
 import { withFormik, FormikProps, Field, Form } from "formik";
-// import { NormalizedErrorMap } from "@earthbnb/controller";
+
 import { InputField } from "../../shared/InputField";
+import { TagField } from "../../shared/TagField";
+import { NormalizedErrorMap } from "@earthbnb/controller";
 
 interface FormValues {
   name: string;
@@ -17,7 +19,7 @@ interface FormValues {
 }
 
 interface Props {
-  // submit: (values: FormValues) => Promise<NormalizedErrorMap | null>;
+  submit: (values: FormValues) => Promise<NormalizedErrorMap | null>;
   onFinish: () => void;
 }
 
@@ -45,16 +47,22 @@ class CreateListing extends React.PureComponent<
         placeholder="Name"
         type="text"
         component={InputField}
+        label="Name"
+        useNumberComponent={false}
       />
       <Field
         name="category"
         placeholder="Category"
+        label="Category"
+        useNumberComponent={false}
         type="text"
         component={InputField}
       />
       <Field
         name="description"
         placeholder="Description"
+        label="Description"
+        useNumberComponent={false}
         type="text"
         component={InputField}
       />
@@ -65,24 +73,32 @@ class CreateListing extends React.PureComponent<
       <Field
         name="price"
         placeholder="Price"
+        label="Price"
+        useNumberComponent={true}
         type="input"
         component={InputField}
       />
       <Field
         name="beds"
         placeholder="Beds"
+        label="Beds"
+        useNumberComponent={true}
         type="input"
         component={InputField}
       />
       <Field
         name="baths"
         placeholder="Baths"
+        label="Baths"
+        useNumberComponent={true}
         type="input"
         component={InputField}
       />
       <Field
         name="guests"
         placeholder="Guests"
+        label="Guests"
+        useNumberComponent={true}
         type="input"
         component={InputField}
       />
@@ -93,20 +109,24 @@ class CreateListing extends React.PureComponent<
       <Field
         name="latitute"
         placeholder="Latitude"
+        label="Latitude"
+        useNumberComponent={true}
         type="input"
         component={InputField}
       />
       <Field
         name="longitute"
         placeholder="Logitude"
+        label="Longitude"
+        useNumberComponent={true}
         type="input"
         component={InputField}
       />
       <Field
         name="ammenities"
         placeholder="Ammenities"
-        type="text"
-        component={InputField}
+        label="Amenities"
+        component={TagField}
       />
     </React.Fragment>
   );
@@ -128,9 +148,13 @@ class CreateListing extends React.PureComponent<
 
           <div className="steps-content">{pages[this.state.page]}</div>
 
-          <div className="steps-action">
+          <div className="steps-action" style={{ display: "flex" }}>
             {page < pages.length - 1 && (
-              <Button type="primary" onClick={() => this.next()}>
+              <Button
+                type="primary"
+                onClick={() => this.next()}
+                style={{ marginRight: "auto" }}
+              >
                 Next
               </Button>
             )}
@@ -138,13 +162,17 @@ class CreateListing extends React.PureComponent<
               <Button
                 type="primary"
                 htmlType="submit"
+                style={{ marginLeft: "auto" }}
                 onClick={() => message.success("Create Listing")}
               >
                 Create Listing
               </Button>
             )}
             {page > 0 && (
-              <Button style={{ marginLeft: 8 }} onClick={() => this.prev()}>
+              <Button
+                style={{ marginLeft: "auto" }}
+                onClick={() => this.prev()}
+              >
                 Previous
               </Button>
             )}
@@ -170,6 +198,8 @@ export default withFormik<Props, FormValues>({
   }),
   handleSubmit: async (values, { props, setErrors }) => {
     // const errors = await props.submit(values);
+
+    console.log("Created Listing", values);
 
     const errors = null;
 

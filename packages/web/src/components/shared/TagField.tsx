@@ -1,15 +1,14 @@
 import * as React from "react";
 import { FieldProps } from "formik";
-import { Form, Input, InputNumber } from "antd";
+import { Form, select } from "antd";
 
-export const InputField: React.SFC<
+export const TagField: React.SFC<
   FieldProps<any> & {
     prefix: React.ReactNode;
     label?: string;
-    userNumberComponent?: boolean;
   }
 > = ({
-  field: { onChange, ...field }, // { name, value, onChaneg, onBlur}
+  field: { ...field, onBlur: _ }, // { name, value, onChaneg, onBlur}
   form: { touched, errors, setFieldValue },
   label,
   useNumberComponent = false, // values, setX, handleX, dirty, isValid, status
@@ -17,7 +16,7 @@ export const InputField: React.SFC<
 }) => {
   const errorMessage = touched[field.name] && errors[field.name];
 
-  const Comp = useNumberComponent ? InputNumber : Input;
+  // const Comp = useNumberComponent ? InputNumber : Input;
 
   return (
     <Form.Item
@@ -25,14 +24,11 @@ export const InputField: React.SFC<
       help={errorMessage}
       label={label}
     >
-      <Comp
+      <Select
         {...field}
         {...props}
-        onChange={
-          useNumberComponent
-            ? (newValues: any) => setFieldValue(field.name, newValue)
-            : onChange
-        }
+        mode="tags"
+        onChange={(newValues: any) => setFieldValue(field.name, newValue)}
       />
     </Form.Item>
   );
