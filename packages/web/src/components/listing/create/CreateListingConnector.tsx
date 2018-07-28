@@ -1,16 +1,18 @@
 import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
+import CreateListing from "./CreateListing";
 
 export class CreateListingConnector extends React.PureComponent<
   RouteComponentProps<{}>
 > {
+  onFinish = () => {
+    this.props.history.push("/dash");
+  };
+
   render() {
-    const { history } = this.props;
     return (
       // tslint:disable-next-line:jsx-no-lambda
-      <button onClick={() => history.push("/create-listing2")}>
-        secret info
-      </button>
+      <CreateListing onFinish={this.onFinish} />
     );
   }
 }

@@ -16,7 +16,9 @@ class Header extends React.Component {
           <Menu.Item key="2">
             <Link to="/register">Register</Link>
           </Menu.Item>
-          <Menu.Item key="3">nav 3</Menu.Item>
+          <Menu.Item key="3">
+            <Link to="/create-listing">New Listing</Link>
+          </Menu.Item>
         </Menu>
       </Layout.Header>
     );

@@ -16,7 +16,10 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "paths": {
+      "@earthbnb/*": ["./*/src"]
+    }
   },
   "exclude": [
     "node_modules",
