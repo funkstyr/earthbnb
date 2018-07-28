@@ -22,6 +22,7 @@ class ChangePassword extends React.PureComponent<
     return (
       <Form style={{ display: "flex" }}>
         <div style={{ width: 400, margin: "auto" }}>
+          <h1>Change Password</h1>
           <Field
             name="newPassword"
             placeholder="New Password"

@@ -22,6 +22,7 @@ class ForgotPassword extends React.PureComponent<
     return (
       <Form style={{ display: "flex" }}>
         <div style={{ width: 400, margin: "auto" }}>
+          <h1>Forgot Password</h1>
           <Field
             name="email"
             placeholder="Email"

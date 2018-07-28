@@ -119,6 +119,7 @@ class CreateListing extends React.PureComponent<
     return (
       <Form style={{ display: "flex" }}>
         <div style={{ margin: "auto", width: "60%" }}>
+          <h1>Create Listing</h1>
           <Steps current={this.state.page}>
             <Steps.Step title={"Description"} />
             <Steps.Step title={"Details"} />

@@ -21,6 +21,7 @@ class Login extends React.PureComponent<FormikProps<FormValues> & Props> {
     return (
       <Form style={{ display: "flex" }}>
         <div style={{ width: 400, margin: "auto" }}>
+          <h1>Login</h1>
           <Field
             name="email"
             placeholder="Email"
