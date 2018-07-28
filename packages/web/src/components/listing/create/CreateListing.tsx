@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Form as AntForm, Button } from "antd";
+import { Button, Steps, message } from "antd";
 import { withFormik, FormikProps, Field, Form } from "formik";
 // import { NormalizedErrorMap } from "@earthbnb/controller";
 import { InputField } from "../../shared/InputField";
@@ -28,7 +28,17 @@ class CreateListing extends React.PureComponent<
     page: 0
   };
 
-  page1 = () => (
+  next = () => {
+    const page = this.state.page + 1;
+    this.setState({ page });
+  };
+
+  prev = () => {
+    const page = this.state.page - 1;
+    this.setState({ page });
+  };
+
+  page1 = (
     <React.Fragment>
       <Field
         name="name"
@@ -50,7 +60,7 @@ class CreateListing extends React.PureComponent<
       />
     </React.Fragment>
   );
-  page2 = () => (
+  page2 = (
     <React.Fragment>
       <Field
         name="price"
@@ -78,7 +88,7 @@ class CreateListing extends React.PureComponent<
       />
     </React.Fragment>
   );
-  page3 = () => (
+  page3 = (
     <React.Fragment>
       <Field
         name="latitute"
@@ -104,19 +114,40 @@ class CreateListing extends React.PureComponent<
   render() {
     const pages = [this.page1, this.page2, this.page3];
 
+    const { page } = this.state;
+
     return (
       <Form style={{ display: "flex" }}>
-        <div style={{ width: 400, margin: "auto" }}>
-          {pages[this.state.page]}
-          <AntForm.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-            >
-              Create Listing
-            </Button>
-          </AntForm.Item>
+        <div style={{ margin: "auto", width: "60%" }}>
+          <Steps current={this.state.page}>
+            <Steps.Step title={"Description"} />
+            <Steps.Step title={"Details"} />
+            <Steps.Step title={"Amenities"} />
+          </Steps>
+
+          <div className="steps-content">{pages[this.state.page]}</div>
+
+          <div className="steps-action">
+            {page < pages.length - 1 && (
+              <Button type="primary" onClick={() => this.next()}>
+                Next
+              </Button>
+            )}
+            {page === pages.length - 1 && (
+              <Button
+                type="primary"
+                htmlType="submit"
+                onClick={() => message.success("Create Listing")}
+              >
+                Create Listing
+              </Button>
+            )}
+            {page > 0 && (
+              <Button style={{ marginLeft: 8 }} onClick={() => this.prev()}>
+                Previous
+              </Button>
+            )}
+          </div>
         </div>
       </Form>
     );
