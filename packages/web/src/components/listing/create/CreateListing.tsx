@@ -1,9 +1,11 @@
 import * as React from "react";
 import { Button, Steps, message } from "antd";
-import { withFormik, FormikProps, Field, Form } from "formik";
+import { withFormik, Field, Form } from "formik";
 
 import { InputField } from "../../shared/InputField";
 import { TagField } from "../../shared/TagField";
+import { withCreateListing, NewPropsCreateListing } from "@earthbnb/controller";
+import { RouteComponentProps } from "react-router-dom";
 
 interface FormValues {
   name: string;
@@ -17,16 +19,17 @@ interface FormValues {
   amenities: string[];
 }
 
-interface Props {
-  onFinish: () => void;
-}
-
-// interface State {
-//   page: number;
+// interface Props {
+//   onFinish: () => void;
 // }
 
+interface State {
+  page: number;
+}
+
 class CreateListing extends React.PureComponent<
-  FormikProps<FormValues> & Props
+  RouteComponentProps<{}> & NewPropsCreateListing,
+  State
 > {
   state = {
     page: 0
@@ -165,7 +168,6 @@ class CreateListing extends React.PureComponent<
                 type="primary"
                 htmlType="submit"
                 style={{ marginLeft: "auto" }}
-                onClick={() => message.success("Create Listing")}
               >
                 Create Listing
               </Button>
@@ -185,21 +187,24 @@ class CreateListing extends React.PureComponent<
   }
 }
 
-export default withFormik<Props, FormValues>({
-  mapPropsToValues: () => ({
-    name: "",
-    category: "",
-    description: "",
-    price: 0,
-    beds: 0,
-    baths: 0,
-    guests: 0,
-    latitude: 0,
-    longitude: 0,
-    amenities: []
-  }),
-  handleSubmit: async (values: FormValues, { props, setSubmitting }: any) => {
-    await props.createListing(values);
-    setSubmitting(false);
-  }
-})(CreateListing);
+export default withCreateListing(
+  withFormik<{}, FormValues>({
+    mapPropsToValues: () => ({
+      name: "",
+      category: "",
+      description: "",
+      price: 0,
+      beds: 0,
+      baths: 0,
+      guests: 0,
+      latitude: 0,
+      longitude: 0,
+      amenities: []
+    }),
+    handleSubmit: async (values: FormValues, { props, setSubmitting }: any) => {
+      await props.createListing(values);
+      setSubmitting(false);
+      message.success("Create Listing");
+    }
+  })(CreateListing as any)
+);
