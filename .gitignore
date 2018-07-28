@@ -33,3 +33,4 @@ tmp/
 temp/
 dist/
 .netlify
+**/images/
