@@ -59,7 +59,7 @@ export const withCreateListing = graphql<
         variables
       });
 
-      console.log(response);
+      console.log("Create Listing Resposne -", response);
     }
   })
 });

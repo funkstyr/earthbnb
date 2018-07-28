@@ -41,6 +41,11 @@ const CreateListing = Loadable({
   loading: Loading
 });
 
+const FindListings = Loadable({
+  loader: () => import("../../listing/find"),
+  loading: Loading
+});
+
 export class Routes extends React.Component {
   render() {
     return (
@@ -93,6 +98,13 @@ export class Routes extends React.Component {
           exact={true}
           component={CreateListing}
         />
+        <Route
+          key="listings"
+          title="Listings"
+          path="/listings"
+          exact={true}
+          component={FindListings}
+        />,
       </Switch>
     );
   }

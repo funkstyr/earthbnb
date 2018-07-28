@@ -3,9 +3,10 @@ import { createWriteStream } from "fs";
 import { ResolverMap } from "../../../types/graphql-utils";
 import { Listing } from "../../../entity/Listing";
 
-const storeUpload = async ({ stream }: any): Promise<any> => {
+const storeUpload = async ({ stream, mimetype }: any): Promise<any> => {
   const id = shortid.generate();
-  const path = `images/${id}`;
+  const extension = mimetype.split("/")[1];
+  const path = `images/${id}.${extension}`;
 
   return new Promise((resolve, reject) =>
     stream
@@ -16,8 +17,8 @@ const storeUpload = async ({ stream }: any): Promise<any> => {
 };
 
 const processUpload = async (upload: any) => {
-  const { stream, filename } = await upload;
-  const { id } = await storeUpload({ stream, filename });
+  const { stream, filename, mimetype } = await upload;
+  const { id } = await storeUpload({ stream, filename, mimetype });
   return id;
 };
 

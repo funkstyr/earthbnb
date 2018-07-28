@@ -40,6 +40,7 @@ declare namespace GQL {
     longitude: number;
     amenities: Array<string>;
     pictureUrl: string;
+    owner: IUser;
   }
 
   interface IUser {

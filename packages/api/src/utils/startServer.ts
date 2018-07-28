@@ -1,5 +1,6 @@
 import "dotenv/config";
 import "reflect-metadata";
+import * as express from "express";
 import * as session from "express-session";
 import * as connectRedis from "connect-redis";
 import * as RateLimit from "express-rate-limit";
@@ -65,6 +66,8 @@ export const startServer = async () => {
       delayMs: 0
     })
   );
+
+  server.express.use("/images", express.static("images"));
 
   const cors = {
     credentials: true,
