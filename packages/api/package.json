@@ -39,6 +39,7 @@
     "@gql2ts/from-schema": "^1.8.1",
     "bcryptjs": "^2.4.3",
     "connect-redis": "^3.3.3",
+    "dataloader": "^1.4.0",
     "dotenv": "^6.0.0",
     "express-rate-limit": "^2.11.0",
     "express-session": "^1.15.6",

@@ -15,6 +15,7 @@ import { genSchema } from "./genSchema";
 import { redisSessionPrefix } from "./constants";
 import { createTestConnection } from "./test/createTestConnection";
 import { middleware } from "./graphqlMiddleware";
+import { userLoader } from "../loaders/userLoader";
 
 const timeInMilliseconds = 1000 * 60 * 60 * 24 * 7; //7 days
 const RedisStore = connectRedis(session);
@@ -37,7 +38,8 @@ export const startServer = async () => {
       redis,
       session: request.session,
       req: request,
-      url: `${request.protocol}://${request.get("host")}`
+      url: `${request.protocol}://${request.get("host")}`,
+      userLoader: userLoader()
     })
   } as any);
 

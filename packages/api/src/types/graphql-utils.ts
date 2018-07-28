@@ -1,10 +1,12 @@
 import { Redis } from "ioredis";
+import { userLoader } from "../loaders/userLoader";
 
 export interface Context {
   redis: Redis;
   url: string;
   session: Session;
   req: Express.Request;
+  userLoader: ReturnType<typeof userLoader>;
 }
 
 export type Resolver = (
