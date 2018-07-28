@@ -1,13 +1,13 @@
 import * as React from "react";
 import { Button, Steps, message } from "antd";
-import { withFormik, Field, Form } from "formik";
+import { withFormik, Form } from "formik";
 
-import { InputField } from "../../shared/InputField";
-import { TagField } from "../../shared/TagField";
-import { DropzoneField } from "../../shared/DropzoneField";
 import { withCreateListing, NewPropsCreateListing } from "@earthbnb/controller";
 import { RouteComponentProps } from "react-router-dom";
 import { ImageFile } from "react-dropzone";
+import { AmenitySet } from "./components/Amenity";
+import { DetailsSet } from "./components/DetailSet";
+import { DescriptionSet } from "./components/DescriptionSet";
 
 interface FormValues {
   name: string;
@@ -48,102 +48,17 @@ class CreateListing extends React.PureComponent<
     this.setState({ page });
   };
 
-  page1 = (
-    <React.Fragment>
-      <Field
-        name="name"
-        placeholder="Name"
-        type="text"
-        component={InputField}
-        label="Name"
-        useNumberComponent={false}
-      />
-      <Field
-        name="category"
-        placeholder="Category"
-        label="Category"
-        useNumberComponent={false}
-        type="text"
-        component={InputField}
-      />
-      <Field
-        name="description"
-        placeholder="Description"
-        label="Description"
-        useNumberComponent={false}
-        type="text"
-        component={InputField}
-      />
-      <Field name="picture" component={DropzoneField} />
-    </React.Fragment>
-  );
-  page2 = (
-    <React.Fragment>
-      <Field
-        name="price"
-        placeholder="Price"
-        label="Price"
-        useNumberComponent={true}
-        type="input"
-        component={InputField}
-      />
-      <Field
-        name="beds"
-        placeholder="Beds"
-        label="Beds"
-        useNumberComponent={true}
-        type="input"
-        component={InputField}
-      />
-      <Field
-        name="baths"
-        placeholder="Baths"
-        label="Baths"
-        useNumberComponent={true}
-        type="input"
-        component={InputField}
-      />
-      <Field
-        name="guests"
-        placeholder="Guests"
-        label="Guests"
-        useNumberComponent={true}
-        type="input"
-        component={InputField}
-      />
-    </React.Fragment>
-  );
-  page3 = (
-    <React.Fragment>
-      <Field
-        name="latitute"
-        placeholder="Latitude"
-        label="Latitude"
-        useNumberComponent={true}
-        type="input"
-        component={InputField}
-      />
-      <Field
-        name="longitute"
-        placeholder="Logitude"
-        label="Longitude"
-        useNumberComponent={true}
-        type="input"
-        component={InputField}
-      />
-      <Field
-        name="ammenities"
-        placeholder="Ammenities"
-        label="Amenities"
-        component={TagField}
-      />
-    </React.Fragment>
-  );
-
   render() {
-    const pages = [this.page1, this.page2, this.page3];
+    const pages = [
+      <DescriptionSet key="description" />,
+      <DetailsSet key="detail" />,
+      <AmenitySet key="amenity" />
+    ];
 
     const { page } = this.state;
+    const last = page === pages.length - 1;
+    const next = page < pages.length - 1;
+    const prev = page > 0;
 
     return (
       <Form style={{ display: "flex" }}>
@@ -158,30 +73,24 @@ class CreateListing extends React.PureComponent<
           <div className="steps-content">{pages[this.state.page]}</div>
 
           <div className="steps-action" style={{ display: "flex" }}>
-            {page < pages.length - 1 && (
+            {(prev || next) && (
               <Button
                 type="primary"
-                onClick={() => this.next()}
+                onClick={() => (!next ? this.prev() : this.next())}
                 style={{ marginRight: "auto" }}
               >
-                Next
+                {next ? "Next" : "Previous"}
               </Button>
             )}
-            {page === pages.length - 1 && (
+
+            {(prev || last) && (
               <Button
                 type="primary"
-                htmlType="submit"
+                htmlType={last ? "submit" : "button"}
                 style={{ marginLeft: "auto" }}
+                onClick={() => (!last ? this.prev() : null)}
               >
-                Create Listing
-              </Button>
-            )}
-            {page > 0 && (
-              <Button
-                style={{ marginLeft: "auto" }}
-                onClick={() => this.prev()}
-              >
-                Previous
+                {last ? "Create Listing" : "Previous"}
               </Button>
             )}
           </div>
