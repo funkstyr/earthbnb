@@ -60,6 +60,69 @@ class CreateListing extends React.PureComponent<
     const next = page < pages.length - 1;
     const prev = page > 0;
 
+    const lastButtonLayout = () => {
+      return (
+        (prev || last) && [
+          <Button
+            key="last_left"
+            type="primary"
+            onClick={() => (!next ? this.prev() : this.next())}
+            style={{ marginRight: "auto" }}
+          >
+            {next ? "Next" : "Previous"}
+          </Button>,
+          <Button
+            type="primary"
+            key="last_right"
+            htmlType={last ? "submit" : "button"}
+            style={{ marginLeft: "auto" }}
+            onClick={() => (!last ? this.prev() : null)}
+          >
+            {last ? "Create Listing" : "Previous"}
+          </Button>
+        ]
+      );
+    };
+
+    const firstButtonLayout = () => {
+      return (
+        !prev && [
+          <Button
+            key="reg_right"
+            type="primary"
+            onClick={() => (!next ? this.prev() : this.next())}
+            style={{ marginLeft: "auto" }}
+          >
+            {next ? "Next" : "Previous"}
+          </Button>
+        ]
+      );
+    };
+
+    const buttonLayout = () => {
+      return (
+        (prev || next) && [
+          <Button
+            type="primary"
+            key="reg_left"
+            htmlType={last ? "submit" : "button"}
+            style={{ marginRight: "auto" }}
+            onClick={() => (!last ? this.prev() : null)}
+          >
+            {last ? "Create Listing" : "Previous"}
+          </Button>,
+          <Button
+            key="reg_right"
+            type="primary"
+            onClick={() => (!next ? this.prev() : this.next())}
+            style={{ marginLeft: "auto" }}
+          >
+            {next ? "Next" : "Previous"}
+          </Button>
+        ]
+      );
+    };
+
     return (
       <Form style={{ display: "flex" }}>
         <div style={{ margin: "auto", width: "60%" }}>
@@ -73,26 +136,11 @@ class CreateListing extends React.PureComponent<
           <div className="steps-content">{pages[this.state.page]}</div>
 
           <div className="steps-action" style={{ display: "flex" }}>
-            {(prev || next) && (
-              <Button
-                type="primary"
-                onClick={() => (!next ? this.prev() : this.next())}
-                style={{ marginRight: "auto" }}
-              >
-                {next ? "Next" : "Previous"}
-              </Button>
-            )}
-
-            {(prev || last) && (
-              <Button
-                type="primary"
-                htmlType={last ? "submit" : "button"}
-                style={{ marginLeft: "auto" }}
-                onClick={() => (!last ? this.prev() : null)}
-              >
-                {last ? "Create Listing" : "Previous"}
-              </Button>
-            )}
+            {!prev
+              ? firstButtonLayout()
+              : last
+                ? lastButtonLayout()
+                : buttonLayout()}
           </div>
         </div>
       </Form>
