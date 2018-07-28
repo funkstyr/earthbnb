@@ -12,4 +12,11 @@
 
 ### .env keys
 
-- SPARKPOST_API_KEY=
+```
+FRONTEND_HOST=
+SESSION_SECRET=
+NODEMAILER_USER=
+NODEMAILER_PASSWORD=
+```
+
+`"request.credentials": "include",` - graphql-yoga settings

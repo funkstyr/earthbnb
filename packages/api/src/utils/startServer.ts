@@ -5,6 +5,7 @@ import * as connectRedis from "connect-redis";
 import * as RateLimit from "express-rate-limit";
 import * as RateLimitRedisStore from "rate-limit-redis";
 import { GraphQLServer } from "graphql-yoga";
+import { applyMiddleware } from "graphql-middleware";
 
 import { redis } from "./redis";
 import { createTypeormConnection } from "./create/createConnection";
@@ -12,6 +13,7 @@ import { confirmEmail } from "../routes/confirmEmail";
 import { genSchema } from "./genSchema";
 import { redisSessionPrefix } from "./constants";
 import { createTestConnection } from "./test/createTestConnection";
+import { middleware } from "./graphqlMiddleware";
 
 const timeInMilliseconds = 1000 * 60 * 60 * 24 * 7; //7 days
 const RedisStore = connectRedis(session);
@@ -25,8 +27,11 @@ export const startServer = async () => {
     await redis.flushall();
   }
 
+  const schema = genSchema as any;
+  applyMiddleware(schema, middleware);
+
   const server = new GraphQLServer({
-    schema: genSchema(),
+    schema,
     context: ({ request }: any) => ({
       redis,
       session: request.session,
@@ -74,7 +79,8 @@ export const startServer = async () => {
   if (process.env.NODE_ENV === "test") {
     await createTestConnection(true);
   } else {
-    await createTypeormConnection();
+    const connection = await createTypeormConnection();
+    await connection.runMigrations();
   }
 
   const port = process.env.PORT || 4000;

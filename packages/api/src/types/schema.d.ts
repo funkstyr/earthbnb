@@ -22,7 +22,24 @@ declare namespace GQL {
 
   interface IQuery {
     __typename: 'Query';
+    findListings: Array<IListing>;
     me: IUser | null;
+  }
+
+  interface IListing {
+    __typename: 'Listing';
+    id: string;
+    name: string;
+    category: string;
+    description: string;
+    price: number;
+    beds: number;
+    baths: number;
+    guests: number;
+    latitude: number;
+    longitude: number;
+    amenities: Array<string>;
+    pictureUrl: string;
   }
 
   interface IUser {
@@ -33,11 +50,21 @@ declare namespace GQL {
 
   interface IMutation {
     __typename: 'Mutation';
+    createListing: boolean;
+    deleteListing: boolean;
     sendForgotPasswordEmail: string | null;
     forgotPasswordChange: Array<IError>;
     login: ILoginResponse;
     logout: boolean | null;
     register: Array<IError>;
+  }
+
+  interface ICreateListingOnMutationArguments {
+    input: ICreateListingInput;
+  }
+
+  interface IDeleteListingOnMutationArguments {
+    id: string;
   }
 
   interface ISendForgotPasswordEmailOnMutationArguments {
@@ -57,6 +84,19 @@ declare namespace GQL {
   interface IRegisterOnMutationArguments {
     email: string;
     password: string;
+  }
+
+  interface ICreateListingInput {
+    name: string;
+    category: string;
+    description: string;
+    price: number;
+    beds: number;
+    baths: number;
+    guests: number;
+    latitude: number;
+    longitude: number;
+    amenities: Array<string>;
   }
 
   interface IError {
