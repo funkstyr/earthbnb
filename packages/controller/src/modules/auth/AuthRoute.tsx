@@ -1,5 +1,5 @@
 import * as React from "react";
-import { RouteProps, Route, RouteComponentProps } from "react-router";
+import { RouteProps, Route, RouteComponentProps, Redirect } from "react-router";
 import { graphql, ChildProps } from "react-apollo";
 import gql from "graphql-tag";
 
@@ -8,21 +8,30 @@ import { MeQuery } from "../../genTypes";
 type Props = RouteProps;
 
 export class AuthRoute extends React.PureComponent<ChildProps<Props, MeQuery>> {
-  renderRoute = (routeprops: RouteComponentProps<{}>) => {
+  renderRoute = (routeProps: RouteComponentProps<{}>) => {
     const { data, component } = this.props;
 
-    console.log("Auth:", data);
+    console.log("Auth:", this.props);
 
     // if (!data || data.loading) {
     //   return null;
     // }
 
-    // if (!data.me || !data.me.email) {
-    //   return <Redirect to="/login" />;
-    // }
+    if (data && !data.me) {
+      // user not logged in
+      return (
+        <Redirect
+          to={{
+            pathname: "/login",
+            state: { next: routeProps.location.pathname }
+          }}
+        />
+      );
+    }
 
     const Component = component as any;
-    return <Component {...routeprops} />;
+
+    return <Component {...routeProps} />;
   };
 
   render() {

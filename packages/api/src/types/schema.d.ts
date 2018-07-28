@@ -90,6 +90,7 @@ declare namespace GQL {
     name: string;
     category: string;
     description: string;
+    picture?: any | null;
     price: number;
     beds: number;
     baths: number;
@@ -109,6 +110,15 @@ declare namespace GQL {
     __typename: 'LoginResponse';
     errors: Array<IError>;
     sessionId: string | null;
+  }
+
+  interface IFile {
+    __typename: 'File';
+    id: string;
+    path: string;
+    filename: string;
+    mimetype: string;
+    encoding: string;
   }
 }
 

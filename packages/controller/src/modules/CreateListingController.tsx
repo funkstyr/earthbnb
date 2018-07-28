@@ -12,6 +12,7 @@ export const createListingMutation = gql`
     $name: String!
     $category: String!
     $description: String!
+    $picture: Upload
     $price: Int!
     $beds: Int!
     $baths: Int!
@@ -25,6 +26,7 @@ export const createListingMutation = gql`
         name: $name
         category: $category
         description: $description
+        picture: $picture
         price: $price
         beds: $beds
         baths: $baths

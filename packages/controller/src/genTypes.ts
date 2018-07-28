@@ -53,6 +53,7 @@ export interface CreateListingMutationVariables {
   name: string;
   category: string;
   description: string;
+  picture?: any | null;
   price: number;
   beds: number;
   baths: number;

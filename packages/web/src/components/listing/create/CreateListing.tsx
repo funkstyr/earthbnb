@@ -4,13 +4,16 @@ import { withFormik, Field, Form } from "formik";
 
 import { InputField } from "../../shared/InputField";
 import { TagField } from "../../shared/TagField";
+import { DropzoneField } from "../../shared/DropzoneField";
 import { withCreateListing, NewPropsCreateListing } from "@earthbnb/controller";
 import { RouteComponentProps } from "react-router-dom";
+import { ImageFile } from "react-dropzone";
 
 interface FormValues {
   name: string;
   category: string;
   description: string;
+  picture: ImageFile | null;
   price: number;
   beds: number;
   guests: number;
@@ -71,6 +74,7 @@ class CreateListing extends React.PureComponent<
         type="text"
         component={InputField}
       />
+      <Field name="picture" component={DropzoneField} />
     </React.Fragment>
   );
   page2 = (
@@ -193,6 +197,7 @@ export default withCreateListing(
       name: "",
       category: "",
       description: "",
+      picture: null,
       price: 0,
       beds: 0,
       baths: 0,
@@ -202,6 +207,8 @@ export default withCreateListing(
       amenities: []
     }),
     handleSubmit: async (values: FormValues, { props, setSubmitting }: any) => {
+      console.log(values);
+
       await props.createListing(values);
       setSubmitting(false);
       message.success("Create Listing");

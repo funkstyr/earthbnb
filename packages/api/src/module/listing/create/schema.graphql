@@ -1,7 +1,18 @@
+scalar Upload
+
+type File {
+  id: ID!
+  path: String!
+  filename: String!
+  mimetype: String!
+  encoding: String!
+}
+
 input CreateListingInput {
   name: String!
   category: String!
   description: String!
+  picture: Upload
   price: Int!
   beds: Int!
   baths: Int!
