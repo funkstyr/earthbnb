@@ -41,7 +41,7 @@
   {
     "name": "production",
     "type": "postgres",
-    "synchronize": false,
+    "synchronize": true,
     "logging": true
   }
 ]

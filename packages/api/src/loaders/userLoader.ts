@@ -1,4 +1,4 @@
-import * as DataLoader from "DataLoader";
+import * as DataLoader from "dataloader";
 import { User } from "../entity/User";
 
 type Batchuser = (ids: string[]) => Promise<User[]>;
