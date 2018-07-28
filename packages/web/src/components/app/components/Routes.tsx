@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as Loadable from "react-loadable";
 import { Route, Switch } from "react-router-dom";
-// import { AuthRoute } from "@earthbnb/controller";
+import { AuthRoute } from "@earthbnb/controller";
 
 import Loading from ".//Loading";
 import { Message } from "./Message";
@@ -36,10 +36,10 @@ const Login = Loadable({
   delay: 300
 });
 
-// const CreateListing = Loadable({
-//   loader: () => import("../../listing/create"),
-//   loading: Loading
-// });
+const CreateListing = Loadable({
+  loader: () => import("../../listing/create"),
+  loading: Loading
+});
 
 export class Routes extends React.Component {
   render() {
@@ -87,12 +87,12 @@ export class Routes extends React.Component {
           exact={true}
           component={Message}
         />,
-        {/* <AuthRoute
+        <AuthRoute
           key="create listing"
           path="/create-listing"
           exact={true}
           component={CreateListing}
-        /> */}
+        />
       </Switch>
     );
   }
