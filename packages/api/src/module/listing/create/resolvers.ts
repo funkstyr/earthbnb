@@ -6,6 +6,9 @@ import { Listing } from "../../../entity/Listing";
 const storeUpload = async ({ stream, mimetype }: any): Promise<any> => {
   const id = shortid.generate();
   const extension = mimetype.split("/")[1];
+
+  console.log("entension type:", extension);
+
   const path = `images/${id}.${extension}`;
 
   return new Promise((resolve, reject) =>
