@@ -12,6 +12,7 @@ RUN yarn install --production
 COPY ./packages/common/dist ./packages/common/dist
 COPY ./packages/api/dist ./packages/api/dist
 COPY ./packages/api/.env.prod ./packages/api/.env
+COPY ./packages/api/images/default.jpg ./packages/images/default.jpg
 COPY ./ormconfig.json .
 
 WORKDIR ./packages/api
@@ -23,3 +24,4 @@ ENV NODE_ENV production
 EXPOSE 4000
 
 CMD ["node", "dist/index.js"]
+

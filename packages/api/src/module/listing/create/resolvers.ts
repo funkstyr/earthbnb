@@ -27,7 +27,7 @@ const processUpload = async (upload: any) => {
     return path;
   }
 
-  return "";
+  return "images/default.jpg";
 };
 
 export const resolvers: ResolverMap = {
