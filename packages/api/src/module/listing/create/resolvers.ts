@@ -7,8 +7,6 @@ const storeUpload = async ({ stream, mimetype }: any): Promise<any> => {
   const id = shortid.generate();
   const extension = mimetype.split("/")[1];
 
-  console.log("entension type:", extension);
-
   const path = `images/${id}.${extension}`;
 
   return new Promise((resolve, reject) =>
@@ -22,6 +20,7 @@ const storeUpload = async ({ stream, mimetype }: any): Promise<any> => {
 const processUpload = async (upload: any) => {
   const { stream, filename, mimetype } = await upload;
   const { id } = await storeUpload({ stream, filename, mimetype });
+
   return id;
 };
 
@@ -29,6 +28,8 @@ export const resolvers: ResolverMap = {
   Mutation: {
     createListing: async (_, { input: { picture, ...data } }, { session }) => {
       const pictureUrl = await processUpload(picture);
+
+      console.log("pictureUrl:", pictureUrl);
 
       await Listing.create({
         ...data,

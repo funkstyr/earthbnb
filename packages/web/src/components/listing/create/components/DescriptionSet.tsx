@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Field } from "formik";
 import { InputField } from "../../../shared/InputField";
-// import { DropzoneField } from "../../../shared/DropzoneField";
+import { DropzoneField } from "../../../shared/DropzoneField";
 
 // export class DescriptionSet extends React.PureComponent {
 //   render() {
@@ -70,6 +70,7 @@ export const DescriptionSet = () => (
       type="text"
       component={InputField}
     />
+    <Field name="picture" label="Picture" component={DropzoneField} />
   </React.Fragment>
 );
 

@@ -8,15 +8,19 @@ export class FindListings extends React.PureComponent<WithFindListings> {
 
     return listings.map(l => {
       return (
-        <Card key={`${l.id}-card`} cover={<img alt="" src={l.pictureUrl} />}>
-          <Card.Meta title={l.name} description={l.description} />>
+        <Card
+          key={`${l.id}-card`}
+          style={{ flex: "1 1 auto", margin: 15 }}
+          cover={<img alt="" src={l.pictureUrl} />}
+        >
+          <Card.Meta title={l.name} description={l.description} />
         </Card>
       );
     });
   };
 
   render() {
-    return <div>{this.displayListings()}</div>;
+    return <div style={{ display: "flex" }}>{this.displayListings()}</div>;
   }
 }
 
