@@ -4,10 +4,14 @@ import { withFindListings, WithFindListings } from "@earthbnb/controller";
 
 export class FindListings extends React.PureComponent<WithFindListings> {
   displayListings = () => {
-    return this.props.listings.map(l => {
-      <Card key={`${l.id}-card`} cover={<img alt="" src={l.pictureUrl} />}>
-        <Card.Meta title={l.name} description={l.description} />>
-      </Card>;
+    const { listings } = this.props;
+
+    return listings.map(l => {
+      return (
+        <Card key={`${l.id}-card`} cover={<img alt="" src={l.pictureUrl} />}>
+          <Card.Meta title={l.name} description={l.description} />>
+        </Card>
+      );
     });
   };
 
