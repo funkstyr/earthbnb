@@ -18,10 +18,16 @@ const storeUpload = async ({ stream, mimetype }: any): Promise<any> => {
 };
 
 const processUpload = async (upload: any) => {
-  const { stream, filename, mimetype } = await upload;
-  const { id } = await storeUpload({ stream, filename, mimetype });
+  const fileUpload = await upload;
 
-  return id;
+  if (fileUpload) {
+    const { stream, filename, mimetype } = fileUpload;
+    const { path } = await storeUpload({ stream, filename, mimetype });
+
+    return path;
+  }
+
+  return "";
 };
 
 export const resolvers: ResolverMap = {

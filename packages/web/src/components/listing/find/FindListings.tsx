@@ -10,8 +10,16 @@ export class FindListings extends React.PureComponent<WithFindListings> {
       return (
         <Card
           key={`${l.id}-card`}
-          style={{ flex: "1 1 auto", margin: 15 }}
-          cover={<img alt="" src={l.pictureUrl} />}
+          style={{
+            flex: "1 1 auto",
+            flexGrow: 0,
+            flexShrink: 0,
+            flexBasis: "25%",
+            flexFlow: "row wrap",
+            justifyContent: "center",
+            margin: 15
+          }}
+          cover={<img alt="" src={l.pictureUrl} style={{ maxWidth: 500 }} />}
         >
           <Card.Meta title={l.name} description={l.description} />
         </Card>

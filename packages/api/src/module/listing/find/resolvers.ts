@@ -4,7 +4,7 @@ import { Listing } from "../../../entity/Listing";
 export const resolvers: ResolverMap = {
   Listing: {
     pictureUrl: (parent, _, { url }) =>
-      parent.pictureUrl && `${url}/images/${parent.pictureUrl}`,
+      parent.pictureUrl && `${url}/${parent.pictureUrl}`,
     owner: ({ userId }, _, { userLoader }) => userLoader.load(userId)
   },
 
