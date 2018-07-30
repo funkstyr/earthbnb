@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "outDir": "dist",
     "module": "esnext",
     "target": "es5",
@@ -16,7 +15,11 @@
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
-    "declaration": true
+    "declaration": true,
+    "baseUrl": "..",
+    "paths": {
+      "@earthbnb/*": ["./*/src"]
+    }
   },
   "exclude": [
     "node_modules",

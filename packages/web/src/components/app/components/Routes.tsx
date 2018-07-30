@@ -3,8 +3,9 @@ import * as Loadable from "react-loadable";
 import { Route, Switch } from "react-router-dom";
 import { AuthRoute, LoginRoute } from "@earthbnb/controller";
 
-import Loading from ".//Loading";
+import Loading from "./Loading";
 import { Message } from "./Message";
+import { Logout } from "../../user/logout";
 
 const Landing = Loadable({
   loader: () => import("../../landing/Landing"),
@@ -64,6 +65,7 @@ export class Routes extends React.Component {
           component={Register}
         />
         <LoginRoute key="login" path="/login" exact={true} component={Login} />
+        <Route key="logout" path="/logout" exact={true} component={Logout} />
         <Route
           key="forgot password"
           title="Forgot Password"
