@@ -7,3 +7,4 @@
 !./packages/common/dist
 !./packages/api/.env.prod
 !./ormconfig.json
+!./packages/api/images/default.jpg
