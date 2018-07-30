@@ -12,7 +12,7 @@ RUN yarn install --production
 COPY ./packages/common/dist ./packages/common/dist
 COPY ./packages/api/dist ./packages/api/dist
 COPY ./packages/api/.env.prod ./packages/api/.env
-COPY ./packages/api/images/default.jpg ./packages/images/default.jpg
+COPY ./packages/api/images/default.jpg ./packages/api/images/default.jpg
 COPY ./ormconfig.json .
 
 WORKDIR ./packages/api

@@ -1,6 +1,7 @@
 #create-react-app
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
+
 # dependencies
 /node_modules
 
@@ -33,4 +34,4 @@ tmp/
 temp/
 dist/
 .netlify
-**/images/
+**/images/*.png
