@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as Loadable from "react-loadable";
 import { Route, Switch } from "react-router-dom";
-import { AuthRoute } from "@earthbnb/controller";
+import { AuthRoute, LoginRoute } from "@earthbnb/controller";
 
 import Loading from ".//Loading";
 import { Message } from "./Message";
@@ -57,20 +57,13 @@ export class Routes extends React.Component {
           exact={true}
           component={Landing}
         />
-        <Route
+        <LoginRoute
           key="register"
-          title="Register"
           path="/register"
           exact={true}
           component={Register}
         />
-        <Route
-          key="login"
-          title="Login"
-          path="/login"
-          exact={true}
-          component={Login}
-        />
+        <LoginRoute key="login" path="/login" exact={true} component={Login} />
         <Route
           key="forgot password"
           title="Forgot Password"

@@ -15,13 +15,12 @@ class C extends React.PureComponent<ChildProps<Props, MeQuery>> {
       return null;
     }
 
-    if (!data.me) {
+    if (data.me) {
       // user not logged in
       return (
         <Redirect
           to={{
-            pathname: "/login",
-            state: { next: routeProps.location.pathname }
+            pathname: "/dash"
           }}
         />
       );
@@ -40,11 +39,11 @@ class C extends React.PureComponent<ChildProps<Props, MeQuery>> {
 }
 
 const meQuery = gql`
-  query MeQuery {
+  query MeQuery1 {
     me {
       email
     }
   }
 `;
 
-export const AuthRoute = graphql<Props, MeQuery>(meQuery)(C);
+export const LoginRoute = graphql<Props, MeQuery>(meQuery)(C);

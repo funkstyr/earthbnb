@@ -20,6 +20,22 @@ export interface MeQuery {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: MeQuery1
+// ====================================================
+
+export interface MeQuery1_me {
+  email: string;
+}
+
+export interface MeQuery1 {
+  me: MeQuery1_me | null;
+}
+
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: ChangePasswordMutation
 // ====================================================
 
