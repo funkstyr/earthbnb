@@ -5,6 +5,7 @@ import { ApolloProvider } from "react-apollo";
 import { client } from "./apollo";
 import { RegisterConnector } from "./components/register/RegisterConnector";
 import { LoginConnector } from "./components/login/LoginConnector";
+import { Me } from "./components/user/Me";
 
 export default class App extends React.Component {
   render() {
@@ -18,6 +19,7 @@ export default class App extends React.Component {
               component={RegisterConnector}
             />
             <Route exact={true} path="/login" component={LoginConnector} />
+            <Route exact={true} path="/me" component={Me} />
           </Switch>
         </Router>
       </ApolloProvider>
