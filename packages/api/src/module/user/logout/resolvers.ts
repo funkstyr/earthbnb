@@ -3,7 +3,7 @@ import { removeUserSessions } from "../../../utils/redis";
 
 export const resolvers: ResolverMap = {
   Mutation: {
-    logout: async (_, __, { session, redis }) => {
+    logout: async (_, __, { session, redis, res }) => {
       const { userId } = session;
 
       if (userId) {
@@ -14,6 +14,8 @@ export const resolvers: ResolverMap = {
             console.log("logout session:", err);
           }
         });
+
+        res.clearCookie("qid");
 
         return true;
       }
