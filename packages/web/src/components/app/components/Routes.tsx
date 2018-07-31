@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as Loadable from "react-loadable";
 import { Route, Switch } from "react-router-dom";
-import { AuthRoute, LoginRoute } from "../../../../../controller/dist";
+import { AuthRoute, LoginRoute } from "@earthbnb/controller";
 
 import Loading from "./Loading";
 import { Message } from "./Message";
