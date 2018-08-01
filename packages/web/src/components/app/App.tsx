@@ -6,7 +6,6 @@ import { Layout } from "antd";
 
 import "./App.css";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
 import { Routes } from "./components/Routes";
 import * as actions from "../../actions";
 import Drawer from "./components/Drawer";
@@ -30,7 +29,8 @@ class App extends React.Component {
               minHeight: "100vh",
               display: "flex",
               width: "100%",
-              height: "100%"
+              height: "100%",
+              overflow: "hidden"
             }}
           >
             <Header />
@@ -39,13 +39,9 @@ class App extends React.Component {
 
             <Layout.Content
               style={{
-                margin: 20,
-                marginTop: 84,
-                marginLeft: 100,
+                margin: 10,
+                marginTop: 55,
                 paddingRight: 20,
-                position: "fixed",
-                width: "94%",
-                height: "100%",
                 overflowY: "scroll"
               }}
             >
@@ -53,8 +49,6 @@ class App extends React.Component {
                 <Routes />
               </div>
             </Layout.Content>
-
-            <Footer />
           </Layout>
         </div>
       </Router>

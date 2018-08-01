@@ -21,7 +21,7 @@ class Drawer extends React.Component {
       >
         <div
           className="logo"
-          style={{ height: 32, margin: 14, background: "rgba(255,255,255,.2)" }}
+          style={{ height: 18, margin: 14, background: "rgba(255,255,255,.2)" }}
         />
         <Menu mode="inline">
           <Menu.Item key="o">
