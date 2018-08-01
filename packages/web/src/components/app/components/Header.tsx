@@ -6,10 +6,20 @@ class Header extends React.Component {
   public render() {
     return (
       <Layout.Header
-        style={{ position: "fixed", zIndex: 1, width: "100%", paddingRight: 0 }}
+        style={{
+          position: "fixed",
+          zIndex: 1,
+          width: "100%",
+          paddingRight: 0,
+          paddingLeft: 10
+        }}
       >
         <div className="logo" />
         <Menu theme="dark" mode="horizontal" style={{ lineHeight: "64px" }}>
+          <Menu.Item key="1">
+            <Link to="/">Earthbnb</Link>
+          </Menu.Item>
+
           <Menu.SubMenu
             title={
               <span>

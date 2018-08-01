@@ -55,13 +55,7 @@ export class Routes extends React.Component {
   render() {
     return (
       <Switch>
-        <Route
-          key="landing"
-          title="Landing"
-          path="/"
-          exact={true}
-          component={Landing}
-        />
+        <LoginRoute key="landing" path="/" exact={true} component={Landing} />
         <LoginRoute
           key="register"
           path="/register"
