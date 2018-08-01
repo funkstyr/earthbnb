@@ -74,7 +74,7 @@ export class Routes extends React.Component {
         <Route
           key="change password"
           title="Change Password"
-          path="/change-password"
+          path="/change-password/:key"
           exact={true}
           component={ChangePassword}
         />

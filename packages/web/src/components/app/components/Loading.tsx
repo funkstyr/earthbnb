@@ -5,6 +5,6 @@ export default class MyLoadingComponent extends React.Component<
   Loadable.LoadingComponentProps
 > {
   render() {
-    return <div>Loading...</div>;
+    return <div />;
   }
 }
