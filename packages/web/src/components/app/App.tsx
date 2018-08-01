@@ -4,11 +4,12 @@ import { connect } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Layout } from "antd";
 
+import "./App.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import "./App.css";
 import { Routes } from "./components/Routes";
 import * as actions from "../../actions";
+import Drawer from "./components/Drawer";
 
 const root: React.CSSProperties = {
   position: "absolute",
@@ -24,11 +25,31 @@ class App extends React.Component {
       <Router>
         <div style={root}>
           <Helmet titleTemplate={`%s - Seed`} />
-          <Layout>
+          <Layout
+            style={{
+              minHeight: "100vh",
+              display: "flex",
+              width: "100%",
+              height: "100%"
+            }}
+          >
             <Header />
 
-            <Layout.Content style={{ padding: "20px 20px", marginTop: 64 }}>
-              <div style={{ background: "#fff", padding: 24, minHeight: 380 }}>
+            <Drawer />
+
+            <Layout.Content
+              style={{
+                margin: 20,
+                marginTop: 84,
+                marginLeft: 100,
+                paddingRight: 20,
+                position: "fixed",
+                width: "94%",
+                height: "100%",
+                overflowY: "scroll"
+              }}
+            >
+              <div>
                 <Routes />
               </div>
             </Layout.Content>

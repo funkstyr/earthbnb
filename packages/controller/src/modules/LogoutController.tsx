@@ -4,6 +4,12 @@ import gql from "graphql-tag";
 
 import { LogoutMutation } from "../genTypes";
 
+const logoutMutation = gql`
+  mutation LogoutMutation {
+    logout
+  }
+`;
+
 interface Props {
   children: (
     data: {
@@ -12,22 +18,15 @@ interface Props {
   ) => JSX.Element | null;
 }
 
-const logoutMutation = gql`
-  mutation LogoutMutation {
-    logout
-  }
-`;
-
-export const LogoutController: React.SFC<Props> = ({ children }) => {
+export const LogoutController: React.SFC<Props> = ({ children }) => (
   <Mutation<LogoutMutation, {}> mutation={logoutMutation}>
     {(mutate, { client }) =>
       children({
         logout: async () => {
           await mutate();
-
           await client.resetStore();
         }
       })
     }
-  </Mutation>;
-};
+  </Mutation>
+);

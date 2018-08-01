@@ -46,6 +46,10 @@ const FindListings = Loadable({
   loader: () => import("../../listing/find"),
   loading: Loading
 });
+const Dashboard = Loadable({
+  loader: () => import("../../dashboard"),
+  loading: Loading
+});
 
 export class Routes extends React.Component {
   render() {
@@ -87,6 +91,12 @@ export class Routes extends React.Component {
           exact={true}
           component={Message}
         />,
+        <AuthRoute
+          key="dashboard"
+          path="/dash"
+          exact={true}
+          component={Dashboard}
+        />
         <AuthRoute
           key="create listing"
           path="/create-listing"

@@ -53,7 +53,7 @@ export const startServer = async () => {
       saveUninitialized: false,
       cookie: {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: false,
         maxAge: timeInMilliseconds
       }
     })
