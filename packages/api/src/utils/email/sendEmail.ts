@@ -23,16 +23,12 @@ export const sendEmail = async (address: string, url: string, text: string) => {
       `
   };
 
-  transporter.sendMail(message, (err, info) => {
-    if (err) {
-      console.log("Email Error:", err.message);
-    }
-
-    console.log("Message sent:", info.messageId);
-
-    const url = nodemailer.getTestMessageUrl(info);
-    console.log("Preview url:", url);
-
-    return url;
+  const mail = await transporter.sendMail(message).then(async info => {
+    const email = await nodemailer.getTestMessageUrl(info);
+    return email;
   });
+
+  Promise.resolve(mail);
+
+  return mail;
 };

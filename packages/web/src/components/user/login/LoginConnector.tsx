@@ -7,10 +7,6 @@ import { RouteComponentProps } from "react-router-dom";
 export class LoginConnector extends React.PureComponent<
   RouteComponentProps<{}>
 > {
-  componentWillMount() {
-    console.log("Forward login", this.props);
-  }
-
   onFinish = () => {
     const {
       history,

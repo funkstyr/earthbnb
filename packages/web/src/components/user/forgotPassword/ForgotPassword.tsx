@@ -20,7 +20,7 @@ class ForgotPassword extends React.PureComponent<
 > {
   render() {
     return (
-      <Form style={{ display: "flex" }}>
+      <Form style={{ display: "flex", margin: 10, marginTop: 55 }}>
         <div style={{ width: 400, margin: "auto" }}>
           <h1>Forgot Password</h1>
           <Field
@@ -58,6 +58,13 @@ export default withFormik<Props, FormValues>({
 
     if (errors) {
       setErrors(errors);
+      if (errors.sendForgotPasswordEmail.includes("ethereal.email")) {
+        console.log("email url: ", errors.sendForgotPasswordEmail);
+
+        props.onFinish();
+      } else {
+        setErrors(errors);
+      }
     } else {
       props.onFinish();
     }

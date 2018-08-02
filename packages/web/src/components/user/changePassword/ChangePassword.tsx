@@ -20,7 +20,7 @@ class ChangePassword extends React.PureComponent<
 > {
   render() {
     return (
-      <Form style={{ display: "flex" }}>
+      <Form style={{ display: "flex", margin: 10, marginTop: 55 }}>
         <div style={{ width: 400, margin: "auto" }}>
           <h1>Change Password</h1>
           <Field

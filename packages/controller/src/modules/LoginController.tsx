@@ -30,8 +30,6 @@ class C extends React.PureComponent<
   >
 > {
   submit = async (values: LoginMutationVariables) => {
-    console.log("register values:", values);
-
     const {
       data: {
         login: { errors, sessionId }

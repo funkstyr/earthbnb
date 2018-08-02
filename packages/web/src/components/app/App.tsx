@@ -3,6 +3,7 @@ import Helmet from "react-helmet";
 import { connect } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Layout } from "antd";
+import { withMe } from "@earthbnb/controller";
 
 import "./App.css";
 import Header from "./components/Header";
@@ -18,7 +19,11 @@ const root: React.CSSProperties = {
   right: 0
 };
 
-class App extends React.Component {
+interface Props {
+  me: any;
+}
+
+class App extends React.Component<Props> {
   public render() {
     return (
       <Router>
@@ -35,13 +40,10 @@ class App extends React.Component {
           >
             <Header />
 
-            <Drawer />
+            {this.props.me && this.props.me.email && <Drawer />}
 
             <Layout.Content
               style={{
-                margin: 10,
-                marginTop: 55,
-                paddingRight: 20,
                 overflowY: "scroll"
               }}
             >
@@ -66,4 +68,4 @@ const mapStateToProps = (state: any = {}) => {
 export default connect(
   mapStateToProps,
   actions
-)(App);
+)(withMe(App));

@@ -1,7 +1,7 @@
 import { TOGGLE_NAV } from "../actions/types";
 
 const initialState = {
-  navCollapsed: false
+  navCollapsed: true
 };
 
 export default (state = initialState, { type }: any) => {

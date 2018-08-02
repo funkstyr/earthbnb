@@ -8,7 +8,7 @@ export class Message extends React.PureComponent<RouteComponentProps<{}>> {
     } = this.props;
 
     return (
-      <div>
+      <div style={{ margin: 10, marginTop: 55, display: "flex" }}>
         <h3>Message</h3>
         {state && state.message}
       </div>

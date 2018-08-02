@@ -1,8 +1,25 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Menu, Layout, Icon } from "antd";
+import { withMe } from "@earthbnb/controller";
 
-class Header extends React.Component {
+interface Props {
+  me: any;
+}
+
+const loggedIn = () => [
+  <Menu.Item key="setting:2">
+    <Link to="/dash">Dashboard</Link>
+  </Menu.Item>,
+  <Menu.Item key="setting:3">
+    <Link to="/profile">Profile</Link>
+  </Menu.Item>,
+  <Menu.Item key="setting:1">
+    <Link to="/logout">Log Out</Link>
+  </Menu.Item>
+];
+
+class Header extends React.Component<Props> {
   public render() {
     return (
       <Layout.Header
@@ -10,8 +27,8 @@ class Header extends React.Component {
           position: "fixed",
           zIndex: 1,
           width: "100%",
-          paddingRight: 0,
           paddingLeft: 10,
+          paddingRight: 0,
           height: 50
         }}
       >
@@ -34,12 +51,13 @@ class Header extends React.Component {
             }
             style={{ float: "right" }}
           >
-            <Menu.Item key="2">
-              <Link to="/login">Login</Link>
-            </Menu.Item>
-            <Menu.Item key="setting:1">
-              <Link to="/logout">Log Out</Link>
-            </Menu.Item>
+            {this.props.me && this.props.me.email ? (
+              loggedIn()
+            ) : (
+              <Menu.Item key="2">
+                <Link to="/login">Login</Link>
+              </Menu.Item>
+            )}
           </Menu.SubMenu>
         </Menu>
       </Layout.Header>
@@ -47,4 +65,4 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+export default withMe(Header);

@@ -1,21 +1,25 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Menu, Layout, Icon } from "antd";
 
-class Drawer extends React.Component {
-  state = {
-    collapsed: true
-  };
+import * as actions from "../../../actions";
 
-  onCollapse = (collapsed: boolean) => {
-    this.setState({ collapsed });
+interface Props {
+  toggleNav: () => void;
+  navCollapsed: boolean;
+}
+
+class Drawer extends React.Component<Props> {
+  onCollapse = () => {
+    this.props.toggleNav();
   };
 
   public render() {
     return (
       <Layout.Sider
         collapsible={true}
-        collapsed={this.state.collapsed}
+        collapsed={this.props.navCollapsed}
         onCollapse={this.onCollapse}
         theme="light"
       >
@@ -80,4 +84,15 @@ class Drawer extends React.Component {
   }
 }
 
-export default Drawer;
+const mapStateToProps = (state: any = {}) => {
+  const { navCollapsed } = state.display;
+
+  return {
+    navCollapsed
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  actions
+)(Drawer);

@@ -48,17 +48,15 @@ export const resolvers: ResolverMap = {
       if (process.env.NODE_ENV !== "test") {
         const confirmUrl = await sendEmail(email, emailURL, "Confirm Email");
 
-        if (confirmUrl) {
-          return [
-            {
-              path: "email",
-              message: confirmUrl
-            }
-          ];
-        }
-      }
+        console.log("urls:", emailURL, confirmUrl);
 
-      return null;
+        return [
+          {
+            path: "email",
+            message: confirmUrl
+          }
+        ];
+      }
     }
   }
 };

@@ -28,7 +28,11 @@ export class FindListings extends React.PureComponent<WithFindListings> {
   };
 
   render() {
-    return <div style={{ display: "flex" }}>{this.displayListings()}</div>;
+    return (
+      <div style={{ display: "flex", margin: 10, marginTop: 55 }}>
+        {this.displayListings()}
+      </div>
+    );
   }
 }
 

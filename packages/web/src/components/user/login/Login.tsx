@@ -19,7 +19,7 @@ interface Props {
 class Login extends React.PureComponent<FormikProps<FormValues> & Props> {
   render() {
     return (
-      <Form style={{ display: "flex" }}>
+      <Form style={{ display: "flex", margin: 10, marginTop: 55 }}>
         <div style={{ width: 400, margin: "auto" }}>
           <h1>Login</h1>
           <Field

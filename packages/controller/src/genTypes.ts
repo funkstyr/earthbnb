@@ -169,6 +169,22 @@ export interface LogoutMutation {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: MeTwoQuery
+// ====================================================
+
+export interface MeTwoQuery_me {
+  email: string;
+}
+
+export interface MeTwoQuery {
+  me: MeTwoQuery_me | null;
+}
+
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: RegisterMutation
 // ====================================================
 
