@@ -19,7 +19,6 @@ export const DropzoneField: React.SFC<
     <div>
       <Dropzone
         onDrop={([file]) => {
-          console.log("file ", file);
           fileName = file;
           setFieldValue(name, file);
         }}

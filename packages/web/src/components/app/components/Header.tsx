@@ -19,6 +19,15 @@ const loggedIn = () => [
   </Menu.Item>
 ];
 
+const loggedOut = () => [
+  <Menu.Item key="2">
+    <Link to="/listings">Listings</Link>
+  </Menu.Item>,
+  <Menu.Item key="2">
+    <Link to="/login">Login</Link>
+  </Menu.Item>
+];
+
 class Header extends React.Component<Props> {
   public render() {
     return (
@@ -51,13 +60,7 @@ class Header extends React.Component<Props> {
             }
             style={{ float: "right" }}
           >
-            {this.props.me && this.props.me.email ? (
-              loggedIn()
-            ) : (
-              <Menu.Item key="2">
-                <Link to="/login">Login</Link>
-              </Menu.Item>
-            )}
+            {this.props.me && this.props.me.email ? loggedIn() : loggedOut()}
           </Menu.SubMenu>
         </Menu>
       </Layout.Header>
