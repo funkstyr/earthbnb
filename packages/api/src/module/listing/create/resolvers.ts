@@ -1,7 +1,9 @@
 import * as shortid from "shortid";
 import { createWriteStream } from "fs";
+import { listingSchema } from "@earthbnb/common";
 import { ResolverMap } from "../../../types/graphql-utils";
 import { Listing } from "../../../entity/Listing";
+import { formatYupError } from "../../../utils/formatError";
 
 const storeUpload = async ({ stream, mimetype }: any): Promise<any> => {
   const id = shortid.generate();
@@ -32,16 +34,30 @@ const processUpload = async (upload: any) => {
 
 export const resolvers: ResolverMap = {
   Mutation: {
-    createListing: async (_, { input: { picture, ...data } }, { session }) => {
+    createListing: async (
+      _,
+      { input: { picture, ...data } }: GQL.ICreateListingOnMutationArguments,
+      { session }
+    ) => {
       const pictureUrl = await processUpload(picture);
 
       console.log("pictureUrl:", pictureUrl);
 
-      await Listing.create({
+      const args = {
         ...data,
         pictureUrl,
         userId: session.userId
-      }).save();
+      };
+
+      console.log("Args: ", args);
+
+      try {
+        await listingSchema.validate(args, { abortEarly: false });
+      } catch (err) {
+        return formatYupError(err);
+      }
+
+      await Listing.create().save();
 
       return true;
     }

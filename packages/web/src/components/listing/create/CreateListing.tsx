@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Button, Steps, message } from "antd";
 import { withFormik, Form } from "formik";
-
+import { listingSchema } from "@earthbnb/common";
 import { withCreateListing, NewPropsCreateListing } from "@earthbnb/controller";
 import { RouteComponentProps } from "react-router-dom";
 import { ImageFile } from "react-dropzone";
@@ -150,6 +150,7 @@ class CreateListing extends React.PureComponent<
 
 export default withCreateListing(
   withFormik<{}, FormValues>({
+    validationSchema: listingSchema,
     mapPropsToValues: () => ({
       name: "",
       category: "",
