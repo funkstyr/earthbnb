@@ -52,7 +52,7 @@ export const resolvers: ResolverMap = {
       console.log("Args: ", args);
 
       try {
-        await listingSchema.validate(args, { abortEarly: false });
+        // await listingSchema.validate(args, { abortEarly: false });
       } catch (err) {
         return formatYupError(err);
       }
