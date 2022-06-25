@@ -20,7 +20,7 @@
     "@types/yup": "^0.24.7",
     "faker": "^4.1.0",
     "jest": "^23.4.1",
-    "node-fetch": "^2.2.0",
+    "node-fetch": "^2.6.7",
     "nodemon": "^1.17.3",
     "request-promise": "^4.2.2",
     "ts-jest": "^23.0.1",
